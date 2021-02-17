@@ -1,0 +1,6 @@
+
+# Do not push node_modules and contents to github
+node_modules
+
+build
+
