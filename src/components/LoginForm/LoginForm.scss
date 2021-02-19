@@ -1,0 +1,42 @@
+
+@import "../../COLORS.scss";
+
+#login-form{
+    border-radius: 1.5rem;
+    box-shadow: 0px 0px 3px $dark-color;
+    padding: 1rem;
+
+    input{
+        padding: .5rem;
+    }
+}
+.form-logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form-logo-icon{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    text-align: center;
+    margin: .4rem;
+}
+.form-type{
+    color: $primary-color;
+    font-size: 1.9rem;
+    font-weight: bold;
+}
+.field-legend{
+    text-align: left;
+    padding: .8rem 0rem;
+    margin-bottom: 2.5rem;
+    font-size: .7rem;
+}
+.forgot-password-link{
+    text-align: right;
+}
+.fa-sign-in{
+    padding-right: .4rem;
+}
