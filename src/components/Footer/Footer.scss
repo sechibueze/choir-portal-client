@@ -1,13 +1,25 @@
 
 .footer{
     padding: 1rem;
-    background-color: #555;
-    opacity: .8;
+    background-color: #333;
+    // opacity: .8;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
+
 .copyright{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     color: #ddd;
+}
+.copyright-text{
+    font-size: .7rem;
+}
+.copyright-logo{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
 }

@@ -4,9 +4,11 @@ import {
   LOADED,
   SIGNUP_SUCCESS,
   // SIGNUP_FAIL,
+
+  LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  // LOGIN_FAIL,
-  LOAD_CURRENT_MEMBER,
+  LOGIN_FAIL,
+
   // SET_ALERT,
   LOGOUT,
   GET_ACCESS,
@@ -15,8 +17,13 @@ import {
   RESET_ACCESS_DATA,
   DELETE_ACCESS,
   FLUSH_ACCESS_LIST,
+  LOAD_CURRENT_MEMBER_SUCCESS,
+  LOAD_CURRENT_MEMBER_REQUEST,
+  LOAD_CURRENT_MEMBER_FAIL,
 } from './types';
-import { handleResponseErrors } from './alertActions';
+import { handleResponseErrors, setAlert } from './alertActions';
+import { BACKEND_URL, AUTH_TOKEN } from '../constants';
+import validateAuthToken from '../_utils/validateAuthToken';
 
 export const getRequestConfig = (method="GET", body = null ) => {
   let requestConfig = {
@@ -26,7 +33,7 @@ export const getRequestConfig = (method="GET", body = null ) => {
       }
     };
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(AUTH_TOKEN);
     if (token) {
       requestConfig.headers['x-auth-token'] = token;
     }
@@ -42,14 +49,14 @@ export const getConfigHeaders = ( type = 'application/json') => {
       "Content-Type": type
     }
   }
-  const token = localStorage.getItem('token');
+  const token = validateAuthToken();
   if (token) {
     configHeaders.headers['x-auth-token'] = token;
   }
   return configHeaders;
 
 };
-
+// lightworthng@gmail.com
 export const getAccessToken = ( type = 'application/json') => {
   let configHeaders = {
     headers: {
@@ -65,15 +72,18 @@ export const getAccessToken = ( type = 'application/json') => {
 }
 
 export const loadCurrentMember = () => dispatch => {
-  dispatch({ type: LOADING });
+  dispatch({ type: LOAD_CURRENT_MEMBER_REQUEST });
   const configHeaders = getConfigHeaders();
-  axios.get('/api/members/auth', configHeaders)
+  const uri = `${BACKEND_URL}/api/members/auth`;
+  axios.get(uri, configHeaders)
     .then(({ data }) => {
-      dispatch({ type: LOAD_CURRENT_MEMBER, payload: data.data });
+      console.log('[loadCurrentMember]: data ', data)
+      dispatch({ type: LOAD_CURRENT_MEMBER_SUCCESS, payload: data.data });
     })
     .catch(err => {
-      console.log('Err ', err)
-      dispatch(handleResponseErrors(err, 'AUTH'));
+      console.log('[loadCurrentMember]: error ', {err})
+      dispatch({ type: LOAD_CURRENT_MEMBER_FAIL})
+      // dispatch(handleResponseErrors(err, 'AUTH'));
     });
 };
 
@@ -96,20 +106,28 @@ export const registerMember = memberData => dispatch => {
 };
 
 export const loginMember = memberLogin => dispatch => {
-  dispatch({ type: LOADING });
-
-  axios.post('/api/members/login', memberLogin)
+  dispatch({ type: LOGIN_REQUEST });
+  const uri = `${BACKEND_URL}/api/members/login`;
+  axios.post(uri, memberLogin)
     .then(({ data }) => {
-      console.log('Data ', data)
-      localStorage.setItem('token', data.token);
-
+      console.log('[loginMember]:Data ', data)
+      localStorage.setItem(AUTH_TOKEN, data.token);
       dispatch(loadCurrentMember());
-
       dispatch({ type: LOGIN_SUCCESS, payload: data.token });
     })
     .catch(err => {
-      dispatch(handleResponseErrors(err, 'LOGIN'));
-      dispatch({ type: LOADED });
+      console.log('[loginMember]:Error ', { err })
+      dispatch({ type: LOGIN_FAIL })
+      if (err.response) {
+        // Server Error
+        return dispatch(setAlert(err.response.data.message, LOGIN_FAIL))
+      }
+      if (!err.response && !window.navigator.onLine) {
+        //Check internet connectivity
+        return dispatch(setAlert("Check your newtwork", LOGIN_FAIL))
+      }
+      // Netwoek error
+      return dispatch(setAlert(err.message, LOGIN_FAIL))
     });
 };
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Alert from '../Alert';
 import { addAccess } from '../../_actions/authActions';
-import { STATUS } from '../constants';
+import { STATUS } from '../../constants';
 
 const AddAccess = ({ closeModal, addAccess, newAccess }) => {
   const [data, setData] = useState({id: '', status: ''});

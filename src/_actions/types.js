@@ -1,5 +1,45 @@
-export const baseURL = process.env.NODE_ENV === 'production' ? 'https://ft-choir-portal.herokuapp.com' : 'http://localhost:5000';
 
+/******** ALERT  */
+export const SET_ALERT = 'SET_ALERT';
+export const CLEAR_ALERT = 'CLEAR_ALERT';
+
+// -------------------------------------------
+// Add new member
+export const ADD_NEW_MEMBER_REQUEST = 'ADD_NEW_MEMBER_REQUEST';
+export const ADD_NEW_MEMBER_SUCCESS = 'ADD_NEW_MEMBER_SUCCESS';
+export const ADD_NEW_MEMBER_FAIL = 'ADD_NEW_MEMBER_FAIL';
+export const RESET_MEMBER_DATA = 'RESET_MEMBER_DATA';
+
+export const EDIT_MEMBER_REQUEST = 'EDIT_MEMBER_REQUEST';
+export const EDIT_MEMBER_SUCCESS = 'EDIT_MEMBER_SUCCESS';
+export const EDIT_MEMBER_FAIL = 'EDIT_MEMBER_FAIL';
+
+// Login
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+
+// User By Auth
+export const LOAD_CURRENT_MEMBER_SUCCESS = 'LOAD_CURRENT_MEMBER_SUCCESS';
+export const LOAD_CURRENT_MEMBER_REQUEST = 'LOAD_CURRENT_MEMBER_REQUEST';
+export const LOAD_CURRENT_MEMBER_FAIL = 'LOAD_CURRENT_MEMBER_FAIL';
+
+// Get Members 
+export const GET_MEMBERS_SUCCESS = 'GET_MEMBERS_SUCCESS';
+export const GET_MEMBERS_REQUEST = 'GET_MEMBERS_REQUEST';
+export const GET_MEMBERS_FAIL = 'GET_MEMBERS_FAIL';
+// Toggle Admin 
+export const TOGGLE_ADMIN_SUCCESS = 'TOGGLE_ADMIN_SUCCESS';
+export const TOGGLE_ADMIN_REQUEST = 'TOGGLE_ADMIN_REQUEST';
+export const TOGGLE_ADMIN_FAIL = 'TOGGLE_ADMIN_FAIL';
+// Delete Member
+export const DELETE_MEMBER_SUCCESS = 'DELETE_MEMBER_SUCCESS';
+export const DELETE_MEMBER_REQUEST = 'DELETE_MEMBER_REQUEST';
+export const DELETE_MEMBER_FAIL = 'DELETE_MEMBER_FAIL';
+
+export const LOGOUT = 'LOGOUT';
+
+// ------------------------------------------------
 /********SHILOH */
 export const SHILOH_SIGNUP = 'SHILOH_SIGNUP';
 export const GET_SHILOH_DATA = 'GET_SHILOH_DATA';
@@ -8,27 +48,18 @@ export const DELETE_SHILOH_DATA = 'DELETE_SHILOH_DATA';
 export const RESET_SHILOH_DATA = 'RESET_SHILOH_DATA';
 export const GET_SHILOH_ATTENDANCE_LIST = 'GET_SHILOH_ATTENDANCE_LIST';
 export const GENERATE_SHILOH_ATTENDANCE_REPORT = 'GENERATE_SHILOH_ATTENDANCE_REPORT';
-
-/******** ALERT  */
-export const SET_ALERT = 'SET_ALERT';
-export const CLEAR_ALERT = 'CLEAR_ALERT';
 export const CONFIRM_ACCESS = 'CONFIRM_ACCESS';
 export const LOADING = 'LOADING';
 export const LOADED = 'LOADED';
 
-
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAIL = 'SIGNUP_FAIL';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const AUTH_FAIL = 'AUTH_FAIL';
-export const LOGOUT = 'LOGOUT';
 
 export const SEND_PASSWORD_RESET_TOKEN = 'SEND_PASSWORD_RESET_TOKEN';
 export const RESET_MEMBER_PASSWORD = 'RESET_MEMBER_PASSWORD';
 
-// Used By Auth
-export const LOAD_CURRENT_MEMBER = 'LOAD_CURRENT_MEMBER';
+
 
 export const LOAD_MEMBER_PROFILE = 'LOAD_MEMBER_PROFILE';
 export const CREATE_MEMBER_PROFILE = 'CREATE_MEMBER_PROFILE';

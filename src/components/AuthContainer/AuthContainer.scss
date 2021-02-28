@@ -1,0 +1,93 @@
+@import '../../Root.scss';
+
+/************* ADMIN CONTEXT BOX**************/
+.context-box{
+    display: block;
+    width: 85%;
+    padding: 1rem .8rem;
+  }
+  .context-action{
+    display: inline-block;
+    text-align: center;
+    font-weight: normal;
+    margin: auto .5rem;
+    padding: .5rem;
+    color: $primary-color;
+    border-bottom: 1px solid $primary-color;
+    cursor: pointer;
+  }
+  .three-dots{
+    margin-left: .8rem;
+  }
+  
+  /************ MAIN ADMIN BODY *************/
+  
+  .admin-navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto;
+    padding: 1rem 1.2rem;
+    background-color: $light-color;
+    border-bottom: 1px solid $primary-color;
+    box-shadow: 0 0px 7px #ccc;
+  }
+  .admin-navbar-actions{
+    align-self: center;
+    li{
+      display: inline;
+      padding: .4rem .5rem;
+      margin: auto .6rem;
+      background-color: #fefefe;
+      transition: border .5s ease-in-out;
+      a{
+        color: $primary-color;
+      }
+      
+      &:hover{
+        border-bottom: 1px solid $secondary-color;
+      }
+    }
+  }
+  .drop-down{
+    position: relative;
+  }
+  .drop-down:hover .drop-down-menu{
+    display: block;
+  }
+  .drop-down-menu{
+    display: none;
+    position: absolute;
+    width: 8rem;
+    top: 1.9rem;
+    right: .1rem;
+    background-color: $secondary-color;
+    color: #FEFEFE;
+  }
+  .link-icon{
+    margin-right: .5rem;
+  }
+  .sm-hide{
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+  .drop-down-menu .drop-down-menu-link{
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: .4rem .5rem;
+    background-color: $primary-color;
+    color: #fefefe;
+    transition: background-color .5s ease-in-out;
+    &:hover{
+      background-color: #fefefe;
+      color: $primary-color;
+    }
+  }
+
+  .admin-navbar-item-image{
+      width: 2rem;
+      vertical-align: 'middle';
+      border-radius: 23px;
+  }

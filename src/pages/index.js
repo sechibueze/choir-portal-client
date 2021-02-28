@@ -5,6 +5,7 @@ import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
 import OnBoard from './OnBoard';
 import Dashboard from './Dashboard';
+import Members from './Members';
 
 export {
     Home,
@@ -13,6 +14,7 @@ export {
     ForgotPassword,
     ResetPassword,
     OnBoard,
-    Dashboard
+    Dashboard,
+    Members,
 
 }

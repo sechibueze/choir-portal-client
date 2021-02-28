@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
-import spinnerUrl from  './spinner.gif';
+// import spinnerUrl from  './spinner.gif';
 const Loader = ({ title }) => {
   return (
     <Fragment>
       
       <img 
-        src={spinnerUrl}
+        src={"https"}
         alt='Loading...'
         style={{
           display: 'block',
