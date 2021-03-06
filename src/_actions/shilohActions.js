@@ -2,7 +2,6 @@ import axios from 'axios';
 import {
   LOADING,
   LOADED,
-  baseURL,
   GET_SHILOH_ATTENDANCE_LIST,
   GET_SHILOH_DATA,
   SHILOH_SIGNUP,
@@ -14,11 +13,12 @@ import {
 } from '../_actions/types';
 import { setAlert } from './alertActions';
 import { getRequestConfig } from './authActions';
+import { BACKEND_URL } from "../constants";
 
 
 
 export const registerForShiloh = data => dispatch => {
-    const url = `${ baseURL }/api/shiloh/register`;
+    const url = `${ BACKEND_URL }/api/shiloh/register`;
     const requestConfig = getRequestConfig("POST", data);
     fetch(url, requestConfig)
       .then(response => {
@@ -47,7 +47,7 @@ export const registerForShiloh = data => dispatch => {
 
 export const getShilohRegistrationById = (id) => dispatch => {
     dispatch({ type: LOADING })
-    const url = `${ baseURL }/api/shiloh/attendees/${ id }`;
+    const url = `${ BACKEND_URL }/api/shiloh/attendees/${ id }`;
     const requestConfig = getRequestConfig();
     fetch(url, requestConfig)
       .then(response => {
@@ -79,7 +79,7 @@ export const getShilohRegistrationById = (id) => dispatch => {
 
 export const updateShilohRegistrationById = (shilohData) => dispatch => {
     dispatch({ type: LOADING })
-    const url = `${ baseURL }/api/shiloh/attendees/${ shilohData.id }`;
+    const url = `${ BACKEND_URL }/api/shiloh/attendees/${ shilohData.id }`;
     const requestConfig = getRequestConfig("PUT", shilohData);
     fetch(url, requestConfig)
       .then(response => {
@@ -111,7 +111,7 @@ export const updateShilohRegistrationById = (shilohData) => dispatch => {
 
 export const getShilohRegistration = () => dispatch => {
     dispatch({ type: LOADING });
-    const url = `${ baseURL }/api/shiloh/attendees`;
+    const url = `${ BACKEND_URL }/api/shiloh/attendees`;
     const requestConfig = getRequestConfig();
     fetch(url, requestConfig)
       .then(response => {
@@ -142,7 +142,7 @@ export const resetShilohDaata = () => dispatch => {
     dispatch({type: RESET_SHILOH_DATA});
 }
 export const generateShilohRegistrationReport = () => dispatch => {
-    const url = `${ baseURL }/api/shiloh/report`;
+    const url = `${ BACKEND_URL }/api/shiloh/report`;
     const requestConfig = getRequestConfig("GET");
     fetch(url, requestConfig)
       .then(response => {
@@ -169,7 +169,7 @@ export const generateShilohRegistrationReport = () => dispatch => {
       })
 }
 export const deleteShilohRegistrationById = id => dispatch => {
-    const url = `${ baseURL }/api/shiloh/attendees/${ id }`;
+    const url = `${ BACKEND_URL }/api/shiloh/attendees/${ id }`;
     const requestConfig = getRequestConfig("DELETE");
     fetch(url, requestConfig)
       .then(response => {

@@ -1,63 +1,185 @@
 import {
-  LOAD_MEMBERS,
-  GET_MEMBER_PROFILE,
-  CLEAR_MEMBER_PROFILE,
-  UPDATE_MEMBER_IMAGE,
-  DELETE_MEMBER,
+  GET_MEMBERS_FAIL,
+  GET_MEMBERS_REQUEST,
+  GET_MEMBERS_SUCCESS,
 
-  SEND_PASSWORD_RESET_TOKEN,
-  RESET_MEMBER_PASSWORD
- 
+  ADD_NEW_MEMBER_REQUEST,
+  ADD_NEW_MEMBER_SUCCESS,
+  ADD_NEW_MEMBER_FAIL,
+  RESET_MEMBER_DATA,
+
+  EDIT_MEMBER_REQUEST,
+  EDIT_MEMBER_SUCCESS,
+  EDIT_MEMBER_FAIL,
+
+  DELETE_MEMBER_FAIL,
+  DELETE_MEMBER_REQUEST,
+  DELETE_MEMBER_SUCCESS,
+
+  TOGGLE_ADMIN_FAIL,
+  TOGGLE_ADMIN_REQUEST,
+  TOGGLE_ADMIN_SUCCESS,
+
+  MEMBERS_UPLOAD_FAIL,
+  MEMBERS_UPLOAD_REQUEST,
+  MEMBERS_UPLOAD_SUCCESS,
+
+  MEMBER_IMAGE_FAIL,
+  MEMBER_IMAGE_REQUEST,
+  MEMBER_IMAGE_SUCCESS,
 } from '../_actions/types';
 const initialState = {
-  members: null,
-  memberData: null,
-  memberImage: null,
-  deletedMember: null,
-  passwordResetToken: null,
-  passwordReset: null
+  membersRequest: false,
+  members: [],
+
+  newMemberRequest: false,
+  newMember: null,
+
+  membersUploadRequest: false,
+  membersUpload: null,
+
+  deleteMemberRequest: false,
+  removedMember: null,
+
+  editMemberRequest: false,
+  updatedMember: null,
+
+  toggleAdminRequest: false,
+  roleStatus: null,
+
+  memberImageRequest: false,
+  memberImageData: null,
 
 };
 export default function (state = initialState, action) {
   const { type, payload} = action;
 
   switch (type) {
-    case LOAD_MEMBERS:
+    case RESET_MEMBER_DATA:
       return {
         ...state,
+        newMember: null,
+        updatedMember: null,
+        membersUpload: null
+      }; 
+    case GET_MEMBERS_REQUEST:
+      return {
+        ...state,
+        membersRequest: true,
+      };
+    case GET_MEMBERS_SUCCESS:
+      return {
+        ...state,
+        membersRequest: false,
         members: payload
       };
-    case GET_MEMBER_PROFILE:
+    case GET_MEMBERS_FAIL:
       return {
         ...state,
-        memberData: payload
+        membersRequest: false,
       };
-    case CLEAR_MEMBER_PROFILE:
+
+    case ADD_NEW_MEMBER_REQUEST:
       return {
         ...state,
-        memberData: null
-      };
-    case UPDATE_MEMBER_IMAGE:
+        newMemberRequest: true,
+      }; 
+    case ADD_NEW_MEMBER_SUCCESS:
       return {
         ...state,
-        memberImage: payload
-      };
-    case DELETE_MEMBER:
+        newMemberRequest: false,
+        newMember: payload,
+      }; 
+    case ADD_NEW_MEMBER_FAIL:
       return {
         ...state,
-        deletedMember: payload
-      };
-    case SEND_PASSWORD_RESET_TOKEN:
-      return {
-        ...state,
-        passwordResetToken: payload
-      };
-    case RESET_MEMBER_PASSWORD:
-      return {
-        ...state,
-        passwordReset: payload
-      };
+        newMemberRequest: false,
+      }; 
     
+    case DELETE_MEMBER_REQUEST:
+      return {
+        ...state,
+        deleteMemberRequest: true
+      }
+    case DELETE_MEMBER_SUCCESS:
+      return {
+        ...state,
+        deleteMemberRequest: false,
+        removedMember: payload,
+      }
+    case DELETE_MEMBER_FAIL:
+      return {
+        ...state,
+        deleteMemberRequest: false,
+      }
+    case EDIT_MEMBER_REQUEST:
+      return {
+        ...state,
+        editMemberRequest: true
+      }
+    case EDIT_MEMBER_SUCCESS:
+      return {
+        ...state,
+        editMemberRequest: false,
+        updatedMember: payload,
+      }
+    case EDIT_MEMBER_FAIL:
+      return {
+        ...state,
+        editMemberRequest: false,
+      }
+
+    case MEMBERS_UPLOAD_REQUEST:
+      return {
+        ...state,
+        membersUploadRequest: true
+      }
+    case MEMBERS_UPLOAD_SUCCESS:
+      return {
+        ...state,
+        membersUploadRequest: false,
+        membersUpload: payload,
+      }
+    case MEMBERS_UPLOAD_FAIL:
+      return {
+        ...state,
+        membersUploadRequest: false,
+      }
+    case TOGGLE_ADMIN_REQUEST:
+      return {
+        ...state,
+        toggleAdminRequest: true
+      }
+    case TOGGLE_ADMIN_SUCCESS:
+      return {
+        ...state,
+        toggleAdminRequest: false,
+        roleStatus: payload,
+      }
+    case TOGGLE_ADMIN_FAIL:
+      return {
+        ...state,
+        toggleAdminRequest: false,
+      }
+
+    case MEMBER_IMAGE_SUCCESS:
+      return {
+        ...state,
+        memberImageData: payload,
+        memberImageRequest: false,
+      }
+    case MEMBER_IMAGE_REQUEST:
+      return {
+        ...state,
+        memberImageRequest: true,
+      }
+    case MEMBER_IMAGE_FAIL:
+      return {
+        ...state,
+        memberImageRequest: false,
+      }
+    // ----------------------------------------------------------------------------------------
+  
     default:
       return state;
   }

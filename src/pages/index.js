@@ -3,8 +3,11 @@ import Login from './Login';
 import NotFound from './NotFound';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
-import OnBoard from './OnBoard';
+import Start from './Start';
 import Dashboard from './Dashboard';
+import Members from './Members';
+import ProfilesList from './ProfilesList';
+import Profile from './Profile';
 
 export {
     Home,
@@ -12,7 +15,10 @@ export {
     NotFound,
     ForgotPassword,
     ResetPassword,
-    OnBoard,
-    Dashboard
+    Start,
+    Dashboard,
+    Members,
+    Profile,
+    ProfilesList
 
 }

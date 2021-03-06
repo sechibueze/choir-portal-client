@@ -9,10 +9,11 @@ $tablet-size: 600px;
     background-color: $primary-color;
     color: $light-color;
     z-index: 99999;
+    transition: top 1s fade;
   }
 .navbar{
     background-color: $light-color;
-    line-height: 4.0;
+    line-height: 3.0;
     display: block;
     width: 100%;
     border-bottom: 1px solid #F1F1F1;
@@ -22,6 +23,7 @@ $tablet-size: 600px;
     width: 90%;
     display: block;
     margin: auto;
+   
 }
 
 #toggle-nav-menu{
@@ -45,10 +47,10 @@ $tablet-size: 600px;
     }
     .fa-bars{
       color: $primary-color;
+      line-height: 2.5;
     }
     // Show menu icon on small screen and hide navlinks
     @media screen and (max-width: $tablet-size) {
-      line-height: 8.0;
       display: block;
       float: right;
     }

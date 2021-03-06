@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 import { SET_ALERT, LOADED, CLEAR_ALERT } from './types';
 
 
-export const setAlert = (alertText, origin = 'AUTH', type="danger",  timeout = 3000) => dispatch => {
+export const setAlert = (alertText, origin = 'AUTH', type="danger",  timeout = 15*1000) => dispatch => {
   const alertId = v4();
   
   dispatch({
@@ -26,52 +26,52 @@ export const clearAlert = (alertId = null) => dispatch => {
 
 export const handleResponseErrors = (err, origin = 'AUTH', type = "danger") => dispatch => {
   if (err.response) {
-      if (err.response.status === 422) {
-        err.response.data.errors.map(e => (
-          dispatch({
-            type: SET_ALERT,
-            payload: {
-              alertId: v4(),
-              alertText: e,
-              origin, 
-              type
-            }
-          })
-        ))
-      } else {
-        dispatch({
-          type: SET_ALERT,
-          payload: {
-            alertId: v4(),
-            alertText: typeof err.response.data === 'object' ? err.response.data.error : err.response.data,
-            origin,
-            type
-          }
-        })
+    // Server Error
+    return dispatch(setAlert(err.response.data.message, origin))
+  }
+  if (!err.response && !window.navigator.onLine) {
+    //Check internet connectivity
+    return dispatch(setAlert("Check your newtwork", origin))
+  }
+  // Netwoek error
+  return dispatch(setAlert(err.message, origin))
+  // if (err.response) {
+  //     if (err.response.status === 422) {
+  //       err.response.data.errors.map(e => (
+  //         dispatch({
+  //           type: SET_ALERT,
+  //           payload: {
+  //             alertId: v4(),
+  //             alertText: e,
+  //             origin, 
+  //             type
+  //           }
+  //         })
+  //       ))
+  //     } else {
+  //       dispatch({
+  //         type: SET_ALERT,
+  //         payload: {
+  //           alertId: v4(),
+  //           alertText: typeof err.response.data === 'object' ? err.response.data.error : err.response.data,
+  //           origin,
+  //           type
+  //         }
+  //       })
 
-      }
-    } else if ( err.request) {
-      dispatch({
-            type: SET_ALERT,
-            payload: {
-              alertId: v4(),
-              alertText: err.request.responseText,
-              origin, 
-              type
-            }
-          })      
-    }else{
+  //     }     
+  //   } else{
       
-      dispatch({
-            type: SET_ALERT,
-            payload: {
-              alertId: v4(),
-              alertText: err.message || err.toString(),
-              origin, 
-              type
-            }
-          })
-    }   
-    dispatch({type: LOADED })
+  //     dispatch({
+  //           type: SET_ALERT,
+  //           payload: {
+  //             alertId: v4(),
+  //             alertText: err.message || err.toString(),
+  //             origin, 
+  //             type
+  //           }
+  //         })
+  //   }   
+  //   dispatch({type: LOADED })
     
 };

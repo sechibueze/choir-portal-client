@@ -4,15 +4,13 @@
 
 
 @import "./COLORS.scss";
-$tablet-size: 800px;
-$mobile-size: 680px;
+
 
 /****************** TOC****************/
 // Global
 // Buttons
 // Card
 // Forms
-// Modal
 // table
 
 
@@ -40,12 +38,55 @@ a{
   width: 80%;
   display: block;
   margin: auto;
+  @media screen and (max-width: $tablet-size) {
+    &{
+      width: 99%;
+    }
+  }
 }
 .container-fluid{
   width: 90%;
 }
 
 
+.data-box{
+  width: 70%;
+  margin: auto;
+  padding: 1.2rem;
+  border: 1px solid #f9f9f9;
+  border-radius: .8rem;
+
+}
+.data-section{
+  background-color: #CCC;
+}
+.data{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: center;
+  padding: 1rem 0rem;
+  .data-field{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1rem;
+    // background-color: #eee;
+    .data-key{
+      font-weight: bolder;
+      margin-right: 2.75rem;
+    }
+  }
+}
+.data-cta{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: .5rem 0rem;
+}
 // Buttons
 .btn{
   padding: .8rem 1.2rem;
@@ -89,6 +130,10 @@ label{
   padding-bottom: .2rem;
   text-align: left;
 }
+form{
+  width: 100%;
+  margin: auto;
+}
 .tip{
   display: block;
   font-size: .7rem;
@@ -126,68 +171,6 @@ label{
   border: none;
   background-color: #F1F1F1;
   // color: $dark-color;
-}
-
-// Modals
-
-.modal.show{
-  display: block;
-}
-.modal{
-  display: none;
-  position: fixed;
-  top: 0rem;
-  left: 0rem;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4);
- 
-  z-index: 99;
-  overflow: auto;
-}
-.modal-close{
-  float: right;
-  background-color: $primary-color;
-  color: $light-color;
-  font-weight: 700;
-  padding: .25rem;
-  cursor: pointer;
-}
-.modal-close::after{
-  display: block;
-  content: "";
-  clear: both;
-}
-.modal-container{
-  width: 85%;
-  display: block;
-  margin: 5rem auto;
-  background-color: $light-color;
-  color: $dark-color;
-  padding: 1.25rem;
-  border-radius: 1rem;
-}
-.modal-header{
-  padding: 1rem .5rem;
-  text-align: left;
-  font-size: 1.2rem;
-  font-weight: 700;
-  border-bottom: 1px solid $dark-color;
-  // box-shadow: 0px 2px 3px $primary-color;
-}
-.modal-body{
-  margin: 1rem auto;
-  text-align: left;
-  font-size: 1rem;
-}
-.modal-footer{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-content: center;
-  
-
 }
 
 
@@ -301,34 +284,34 @@ $sizes: (1, 2, 3, 4);
   }
 }
 
-// Alerts
-.alert{
-  padding: .5rem .75rem;
-  margin: 1rem auto;
-  display: block;
-  text-align: left;
-  &-dismiss{
-    float: right;
-    padding-right: 1rem;
-  }
-  &-dark{
-    @include set-background-color($dark-color)
-  }
+// // Alerts
+// .alert{
+//   padding: .5rem .75rem;
+//   margin: 1rem auto;
+//   display: block;
+//   text-align: left;
+//   &-dismiss{
+//     float: right;
+//     padding-right: 1rem;
+//   }
+//   &-dark{
+//     @include set-background-color($dark-color)
+//   }
 
-  &-primary{
-    @include set-background-color($primary-color)
-  }
-  &-light{
-    @include set-background-color($light-color)
-  }
-  &-success{
-    @include set-background-color($success-color)
-  }
+//   &-primary{
+//     @include set-background-color($primary-color)
+//   }
+//   &-light{
+//     @include set-background-color($light-color)
+//   }
+//   &-success{
+//     @include set-background-color($success-color)
+//   }
 
-  &-danger{
-    @include set-background-color($danger-color)
-  }
-}
+//   &-danger{
+//     @include set-background-color($danger-color)
+//   }
+// }
 
 // Backgrounds
 .bg{

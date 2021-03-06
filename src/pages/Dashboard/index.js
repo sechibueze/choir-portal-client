@@ -1,10 +1,25 @@
 import React from 'react';
-
-const Dashboard = ({ authUser}) => {
-    console.log('AuthUser from dashboard',authUser)
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import AuthContainer from "../../components/AuthContainer";
+import { logout } from "../../_actions/authActions";
+const Dashboard = ({ currentMember, logout }) => {
+    console.log('AuthUser from dashboard', currentMember)
+    
     return ( 
-        <h1> dashboard {authUser.me.firstname } </h1>
+        <AuthContainer>
+            <div>
+                <h1> Hello {currentMember.firstname} </h1>
+                {/* <span onClick={() => logout()}> Logout </span> */}
+            </div>
+        </AuthContainer>
      );
 }
- 
-export default Dashboard;
+
+Dashboard.propTypes = {
+    logout: PropTypes.func.isRequired,
+  }
+  const mapStateToProps = state => ({
+      currentMember: state.auth.currentMember
+  })
+  export default connect(mapStateToProps, { logout })(Dashboard);
