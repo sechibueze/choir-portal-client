@@ -1,26 +1,25 @@
-import React, { Fragment, useState, useEffect} from 'react';
+import React, { Fragment, useState} from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
-import { WSF_STATUS } from '../constants';
+import { WSF_STATUS } from '../../constants';
 
 import Alert from '../Alert'
 import { setAlert } from '../../_actions/alertActions'
-import { updateChurchInfo } from '../../_actions/profileActions';
+import { updateChurchData } from '../../_actions/profileActions';
+import { CHURCH_DATA_FAIL } from '../../_actions/types';
 
-const EditChurchInfo = ({loading, churchInfo, closeModal, updateChurchInfo, updatedChurchInfo }) => {
+const ChurchDataForm = ({_id, currentMember, churchData, updateChurchData, churchDataRequest }) => {
   const [data, setData] = useState({
-      wsf_status: churchInfo.wsf_status ? churchInfo.wsf_status : '',
+      _id: _id && currentMember.auth.includes("admin") ? _id : "",
+      wsf_status: churchData.wsf_status ? churchData.wsf_status : '',
       new_birth_year: '',
       holy_spirit_year: '',
       ordination_year: '',
-      province: churchInfo.province? churchInfo.province : '',
-      district:churchInfo.district ? churchInfo.district : '',
-      zone: churchInfo.zone ? churchInfo.zone : '',
+      province: churchData.province? churchData.province : '',
+      district:churchData.district ? churchData.district : '',
+      zone: churchData.zone ? churchData.zone : '',
       lfc_joined_year: ''
     })
-  useEffect(() => { 
-   if(updatedChurchInfo !== null ) closeModal()
-  }, [updatedChurchInfo])
   
   const handleChange = ({ target}) => {
     setData(prev => ({
@@ -30,7 +29,7 @@ const EditChurchInfo = ({loading, churchInfo, closeModal, updateChurchInfo, upda
   }
    const updateData = e => {
     e.preventDefault();
-    updateChurchInfo(data)
+    updateChurchData(data)
   }
           
   const { wsf_status, province, district, zone } = data;
@@ -44,7 +43,7 @@ const EditChurchInfo = ({loading, churchInfo, closeModal, updateChurchInfo, upda
           </h3>
         </header>
         <form className="form" onSubmit={updateData}>
-          <Alert origin='CHURCH_INFO_UPDATE' />
+          <Alert origin={CHURCH_DATA_FAIL} />
           <div className="form-group">
             <label htmlFor="wsf_status">WSF status</label>
             <select name="wsf_status" onChange={handleChange} value={wsf_status} id="wsf_status" className="form-control" >
@@ -93,7 +92,9 @@ const EditChurchInfo = ({loading, churchInfo, closeModal, updateChurchInfo, upda
             <input type="text" name="zone" className="form-control" value={zone}  onChange={handleChange}  />
           </div>
 
-          <button type="submit" className="btn btn-sm btn-primary fa fa-check"> &nbsp;&nbsp; Update Church Data</button>
+          <button type="submit" className="btn btn-sm btn-primary fa fa-check"> 
+           { churchDataRequest ? "processing..." : "Update Church Data"}
+          </button>
         </form>
       </section>
     </Fragment>
@@ -101,14 +102,14 @@ const EditChurchInfo = ({loading, churchInfo, closeModal, updateChurchInfo, upda
 }
 
  
-EditChurchInfo.propTypes = {
-  updateChurchInfo: PropTypes.func.isRequired,
+ChurchDataForm.propTypes = {
+  updateChurchData: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  updatedChurchInfo: state.profiles.updatedChurchInfo,
-  loading: state.auth.loading
+  currentMember: state.auth.currentMember,
+  churchDataRequest: state.profiles.churchDataRequest,
 });
-export default connect(mapStateToProps, { setAlert, updateChurchInfo})(EditChurchInfo);
+export default connect(mapStateToProps, { setAlert, updateChurchData})(ChurchDataForm);
 
 

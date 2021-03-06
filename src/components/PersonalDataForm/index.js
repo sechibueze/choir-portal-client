@@ -1,12 +1,16 @@
-import React, { Fragment, useState, useEffect} from 'react';
+import React, { useState} from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import Alert from '../Alert';
-import { updateMemberProfile } from '../../_actions/profileActions'
+import { createProfile } from '../../_actions/profileActions'
 import { setAlert } from '../../_actions/alertActions';
-import { WORK_STATUS, MARITAL_STATUS, TITLES, STATES, COUNTRIES, PHONE_NUMBER_PATTERN, TEXT_ONLY_PATTERN, TEXT_WITH_SPACE } from '../constants';
+import { PERSONAL_DATA_FAIL } from '../../_actions/types';
+import { WORK_STATUS, MARITAL_STATUS, TITLES, STATES, COUNTRIES, PHONE_NUMBER_PATTERN,  TEXT_WITH_SPACE } from '../../constants';
 
-const CreatePersonalInfo = ({ closeModal, setAlert, newProfile, updateMemberProfile}) => {
+const PersonalDataForm = ({ dismiss, 
+  currentMember,
+  personalData, personalDataRequest,
+  createProfile, }) => {
 
   const [data, setData] = useState({ 
     title:  '',
@@ -24,19 +28,20 @@ const CreatePersonalInfo = ({ closeModal, setAlert, newProfile, updateMemberProf
     state_origin:  '',
     nationality:  '',
   });
-  useEffect(() => {
-    if(newProfile !== null ) closeModal()
-  }, [newProfile])
+  const [proxyState, setProxyState] = useState(false)
+  // const dismissFunction = () => {if(personalData) dismiss()};
+  // useEffect(dismissFunction [personalData])
+
   const handleChange = ({ target}) => {
     setData(prev => ({
       ...prev,
       [target.name]:target.value
     }))
-  
   }
    const updateData = e => {
     e.preventDefault();
-    updateMemberProfile(data, false)
+    data.proxyState = proxyState;
+    createProfile(data)
   }
   const { 
     phone, whatsapp_phone, contact_address,pha,
@@ -44,19 +49,17 @@ const CreatePersonalInfo = ({ closeModal, setAlert, newProfile, updateMemberProf
     employer_address } = data;
 
   return ( 
-    <Fragment>
+
        <section className="section">
         <header className="section-header">
-          <h3 className="title">
-            Personal Data
-          </h3>
+          <h3 className="title">Personal Data </h3>
         </header>
         <form name="personal" onSubmit={updateData} className="form">
-            <Alert origin='PROFILE_ERROR'/>
+            <Alert origin={PERSONAL_DATA_FAIL} />
             <div className="form-group">
             <label htmlFor="title">Title</label>
             <select name="title"  onChange={handleChange} id="title" className="form-control" >
-              <option selected value=''>--select--</option>
+              <option value=''>--select--</option>
               {
                 TITLES.map((title, idx) => (
                   <option value={title} key={idx}> { `${ title }` } </option>
@@ -67,14 +70,14 @@ const CreatePersonalInfo = ({ closeModal, setAlert, newProfile, updateMemberProf
           <div className="form-group">
             <label htmlFor="gender">Gender </label>
             <select name="gender"  onChange={handleChange} id="gender" className="form-control" >
-              <option selected value=''>--select--</option>
+              <option value=''>--select--</option>
               <option value="Male" > Male  </option>
               <option value="Female" > Female  </option>
             </select>
           </div>
           <div className="form-group">
             <label htmlFor="phone">Telephone number</label>
-            <input type="tel" pattern={PHONE_NUMBER_PATTERN} placeholder="08123456789" name="phone" value={phone} onChange={handleChange} id="phone" pattern="[0-9]{1,11}" className="form-control"
+            <input type="tel" pattern={PHONE_NUMBER_PATTERN} placeholder="08123456789" name="phone" value={phone} onChange={handleChange} id="phone" className="form-control"
                />
           </div>
 
@@ -132,7 +135,7 @@ const CreatePersonalInfo = ({ closeModal, setAlert, newProfile, updateMemberProf
           </div>
 
           <div className="form-group">
-            <label for="profession">Profession</label>
+            <label htmlFor="profession">Profession</label>
             <input type="text" pattern={TEXT_WITH_SPACE} name="profession" value={profession}  onChange={handleChange}   id="profession" className="form-control" 
                />
           
@@ -141,22 +144,22 @@ const CreatePersonalInfo = ({ closeModal, setAlert, newProfile, updateMemberProf
           <div className="form-group">
             <label htmlFor="employer_name">Name of your employer</label>
             <input 
-              type="text" 
-              pattern={TEXT_WITH_SPACE}
-              name="employer_name"  
-              value={employer_name}
-               onChange={handleChange}  
-              id="employer_name" 
-              className="form-control"
+                type="text" 
+                pattern={TEXT_WITH_SPACE}
+                name="employer_name"  
+                value={employer_name}
+                onChange={handleChange}  
+                id="employer_name" 
+                className="form-control"
                />
           </div>
 
           <div className="form-group">
             <label htmlFor="employer_address">Employer address</label>
             <input type="text" className="form-control"
-            value={employer_address}
-             onChange={handleChange}  
-            id="employer_address" name="employer_address"
+              value={employer_address}
+              onChange={handleChange}  
+              id="employer_address" name="employer_address"
             />
           </div>
 
@@ -173,8 +176,8 @@ const CreatePersonalInfo = ({ closeModal, setAlert, newProfile, updateMemberProf
           </div>
 
           <div className="form-group">
-            <label htmlFor="nationality"  onChange={handleChange}  > Nationality</label>
-            <select name="nationality" className="form-control" >
+            <label htmlFor="nationality" > Nationality</label>
+            <select name="nationality" className="form-control" onChange={handleChange} >
               <option selected value=''>--select--</option>
               {
                 COUNTRIES.map((country, idx) => (
@@ -184,19 +187,33 @@ const CreatePersonalInfo = ({ closeModal, setAlert, newProfile, updateMemberProf
             </select>
           </div>
 
-          <button type="submit" className="btn btn-primary btn-sm fa fa-check">Update Personal Profile </button>
+          {
+            currentMember.auth.includes("admin") && (
+              <label htmlFor="proxy"> Proxy
+                <input type="checkbox" name="proxy" defaultChecked={proxyState} onChange={() => setProxyState(!proxyState)} />
+              </label>
+            )
+          }
+
+          <button type="submit" className="btn btn-primary btn-sm"> 
+            <span className="fa fa-check" /> 
+            {
+              personalDataRequest ? "processing...": "Update Personal Profile"
+            }
+          </button>
         </form>
       </section>
-    </Fragment>
+   
    );
 }
  
-CreatePersonalInfo.propTypes = {
-  updateMemberProfile: PropTypes.func.isRequired,
+PersonalDataForm.propTypes = {
+  createProfile: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  newProfile: state.profiles.newProfile,
-  loading: state.auth.loading
+  personalData: state.profiles.personalData,
+  currentMember: state.auth.currentMember,
+  personalDataRequest: state.profiles.personalDataRequest,
 });
-export default connect(mapStateToProps, { setAlert, updateMemberProfile})(CreatePersonalInfo);
+export default connect(mapStateToProps, { setAlert, createProfile })(PersonalDataForm);

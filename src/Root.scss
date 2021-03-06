@@ -49,6 +49,44 @@ a{
 }
 
 
+.data-box{
+  width: 70%;
+  margin: auto;
+  padding: 1.2rem;
+  border: 1px solid #f9f9f9;
+  border-radius: .8rem;
+
+}
+.data-section{
+  background-color: #CCC;
+}
+.data{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: center;
+  padding: 1rem 0rem;
+  .data-field{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1rem;
+    // background-color: #eee;
+    .data-key{
+      font-weight: bolder;
+      margin-right: 2.75rem;
+    }
+  }
+}
+.data-cta{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: .5rem 0rem;
+}
 // Buttons
 .btn{
   padding: .8rem 1.2rem;
@@ -246,34 +284,34 @@ $sizes: (1, 2, 3, 4);
   }
 }
 
-// Alerts
-.alert{
-  padding: .5rem .75rem;
-  margin: 1rem auto;
-  display: block;
-  text-align: left;
-  &-dismiss{
-    float: right;
-    padding-right: 1rem;
-  }
-  &-dark{
-    @include set-background-color($dark-color)
-  }
+// // Alerts
+// .alert{
+//   padding: .5rem .75rem;
+//   margin: 1rem auto;
+//   display: block;
+//   text-align: left;
+//   &-dismiss{
+//     float: right;
+//     padding-right: 1rem;
+//   }
+//   &-dark{
+//     @include set-background-color($dark-color)
+//   }
 
-  &-primary{
-    @include set-background-color($primary-color)
-  }
-  &-light{
-    @include set-background-color($light-color)
-  }
-  &-success{
-    @include set-background-color($success-color)
-  }
+//   &-primary{
+//     @include set-background-color($primary-color)
+//   }
+//   &-light{
+//     @include set-background-color($light-color)
+//   }
+//   &-success{
+//     @include set-background-color($success-color)
+//   }
 
-  &-danger{
-    @include set-background-color($danger-color)
-  }
-}
+//   &-danger{
+//     @include set-background-color($danger-color)
+//   }
+// }
 
 // Backgrounds
 .bg{

@@ -53,7 +53,7 @@ const AuthContainer = ({ children, currentMember, logout }) => {
                 </Link>
                 <div className="drop-down-menu">
                   <span className="drop-down-menu-link"> <span className="link-icon fa fa-user-alt"/> Hi, { currentMember.firstname } </span>
-                  <Link to="/profile" className="drop-down-menu-link"> <span className="link-icon fa fa-user"/> Profile</Link>
+                  <Link to="/profile" className="drop-down-menu-link"> <span className="link-icon fas fa-user-circle"/> Profile</Link>
                   {/* <Link to="http://" className="drop-down-menu-link"> <span className="link-icon fa fa-bookmark"/> Archive</Link>
                   <Link to="http://" className="drop-down-menu-link"> <span className="link-icon fa fa-cogs"/> Settings</Link> */}
                   <span onClick={() => logout()} className="drop-down-menu-link"> <span className="link-icon fa fa-chevron-left"/> Logout</span>

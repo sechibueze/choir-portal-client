@@ -1,66 +1,8 @@
-import React from 'react';
+// import React from 'react';
 export const BACKEND_URL = process.env.NODE_ENV === 'production' ? 'https://ft-choir-portal.herokuapp.com' : 'http://localhost:5000';
 export const APP_NAME = 'FTC Portal';
 export const AUTH_TOKEN = 'token';
-export const columnData = [
-        
-	// {
-	//     cell: () => <button raised primary onClick={handleDelete}>Del</button>,
-	//     ignoreRowClick: true,
-	//     allowOverflow: true,
-	//     button: true,
-	// },
-	{
-		name: "AccessID",
-		selector: "access",
-		sortable: true
-	},
-	{
-		name: "Firstname",
-		selector: "firstname",
-		sortable: true
-	},
-	{
-		name: "Lastname",
-		selector: "lastname",
-		sortable: true
-	},
-	{
-		name: "Email",
-		selector: "email",
-		sortable: true
-	},
-	{
-		name: "Phone",
-		selector: "phone",
-		sortable: true
-	},
-	{
-		name: "Status",
-		selector: "status",
-		sortable: true
-	},
-	{
-		name: "Levels",
-		selector: "auth",
-		sortable: true,
-		cell: d => <span>{ d.auth.join(", ")}</span> ,
-		// cellExport: row => <span>{ row.join(", ")}</span> ,
-	},
-	{
-		name: "Created",
-		selector: "createdAt",
-		sortable: true,
-		cell: row => <span> { row.createdAt } </span>
-		
-	},
-	{
-		name: "Updated",
-		selector: "updatedAt",
-		sortable: true,
-		cell: row => <span> {row.updatedAt} </span>
-	},
-]
+
 export const PHONE_NUMBER_PATTERN = '^[+]{0,1}[0-9]{10,13}$';
 export const TEXT_ONLY_PATTERN = "[A-Za-z]{1,32}";
 export const TEXT_WITH_SPACE = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";

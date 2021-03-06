@@ -20,15 +20,13 @@ import {
   TOGGLE_ADMIN_REQUEST,
   TOGGLE_ADMIN_SUCCESS,
 
-  // -----
-  GET_MEMBER_PROFILE,
-  CLEAR_MEMBER_PROFILE,
-  UPDATE_MEMBER_IMAGE,
-  DELETE_MEMBER,
+  MEMBERS_UPLOAD_FAIL,
+  MEMBERS_UPLOAD_REQUEST,
+  MEMBERS_UPLOAD_SUCCESS,
 
-  SEND_PASSWORD_RESET_TOKEN,
-  RESET_MEMBER_PASSWORD
- 
+  MEMBER_IMAGE_FAIL,
+  MEMBER_IMAGE_REQUEST,
+  MEMBER_IMAGE_SUCCESS,
 } from '../_actions/types';
 const initialState = {
   membersRequest: false,
@@ -36,6 +34,9 @@ const initialState = {
 
   newMemberRequest: false,
   newMember: null,
+
+  membersUploadRequest: false,
+  membersUpload: null,
 
   deleteMemberRequest: false,
   removedMember: null,
@@ -46,18 +47,21 @@ const initialState = {
   toggleAdminRequest: false,
   roleStatus: null,
 
-  // ----
-  memberData: null,
-  memberImage: null,
-  deletedMember: null,
-  passwordResetToken: null,
-  passwordReset: null
+  memberImageRequest: false,
+  memberImageData: null,
 
 };
 export default function (state = initialState, action) {
   const { type, payload} = action;
 
   switch (type) {
+    case RESET_MEMBER_DATA:
+      return {
+        ...state,
+        newMember: null,
+        updatedMember: null,
+        membersUpload: null
+      }; 
     case GET_MEMBERS_REQUEST:
       return {
         ...state,
@@ -91,12 +95,7 @@ export default function (state = initialState, action) {
         ...state,
         newMemberRequest: false,
       }; 
-    case RESET_MEMBER_DATA:
-      return {
-        ...state,
-        newMember: null,
-        updatedMember: null,
-      }; 
+    
     case DELETE_MEMBER_REQUEST:
       return {
         ...state,
@@ -129,6 +128,23 @@ export default function (state = initialState, action) {
         ...state,
         editMemberRequest: false,
       }
+
+    case MEMBERS_UPLOAD_REQUEST:
+      return {
+        ...state,
+        membersUploadRequest: true
+      }
+    case MEMBERS_UPLOAD_SUCCESS:
+      return {
+        ...state,
+        membersUploadRequest: false,
+        membersUpload: payload,
+      }
+    case MEMBERS_UPLOAD_FAIL:
+      return {
+        ...state,
+        membersUploadRequest: false,
+      }
     case TOGGLE_ADMIN_REQUEST:
       return {
         ...state,
@@ -146,38 +162,24 @@ export default function (state = initialState, action) {
         toggleAdminRequest: false,
       }
 
-    // ----
-    case GET_MEMBER_PROFILE:
+    case MEMBER_IMAGE_SUCCESS:
       return {
         ...state,
-        memberData: payload
-      };
-    case CLEAR_MEMBER_PROFILE:
+        memberImageData: payload,
+        memberImageRequest: false,
+      }
+    case MEMBER_IMAGE_REQUEST:
       return {
         ...state,
-        memberData: null
-      };
-    case UPDATE_MEMBER_IMAGE:
+        memberImageRequest: true,
+      }
+    case MEMBER_IMAGE_FAIL:
       return {
         ...state,
-        memberImage: payload
-      };
-    case DELETE_MEMBER:
-      return {
-        ...state,
-        deletedMember: payload
-      };
-    case SEND_PASSWORD_RESET_TOKEN:
-      return {
-        ...state,
-        passwordResetToken: payload
-      };
-    case RESET_MEMBER_PASSWORD:
-      return {
-        ...state,
-        passwordReset: payload
-      };
-    
+        memberImageRequest: false,
+      }
+    // ----------------------------------------------------------------------------------------
+  
     default:
       return state;
   }

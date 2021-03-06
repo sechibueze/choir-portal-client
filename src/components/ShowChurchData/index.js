@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import formatDate from '../formatDate';
 
-const ShowChurchInfo = ({ churchInfo }) => {
+const ShowChurchInfo = ({ churchData }) => {
 
   const { wsf_status, province, district, zone, ordination_year, 
-    lfc_joined_year, holy_spirit_year, new_birth_year} = churchInfo;
+    lfc_joined_year, holy_spirit_year, new_birth_year} = churchData;
   return ( 
     <Fragment>
        <section className="section">

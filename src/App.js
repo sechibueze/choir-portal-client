@@ -2,26 +2,18 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Authenticate from './_utils/Authenticate';
-// import Home from './pages/Home';
-// import Login from './pages/Login';
-// import Access from './pages/Auth/Access';
-// import ForgotPassword from './pages/ForgotPassword';
-// import ResetPassword from './pages/ResetPassword';
-// import Signup from './pages//Signup';
-// import Dashboard from './pages/Dashboard';
-// import Profile from './pages/Profile/Profile';
-// import PostAdmin from './pages/Posts/PostAdmin';
-// import PostPage from './pages/Posts/PostPage';
-// import Members from './pages/Members/ShowMembers';
-// import NotFound from './pages/NotFound';
+
 import {  
   Home,
   Login,
+  Start,
   ForgotPassword,
   ResetPassword,
   Dashboard,
   Members,
-  NotFound
+  ProfilesList,
+  NotFound,
+  Profile
 } from "./pages";
 import "./Root.scss";
 import { loadCurrentMember } from './_actions/authActions';
@@ -40,7 +32,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path='/' component={Home} />
-          {/* <Route exact path='/grantaccess' component={Access} /> */}
+          <Route exact path='/grantaccess' component={Start} />
           <Route exact path='/forgot-password' component={ForgotPassword} />
           <Route path='/password-reset/:token?' component={ResetPassword} />
            
@@ -49,8 +41,8 @@ const App = () => {
           {/* <Route exact path='/signup/:accessId' component={Signup} /> */}
           <Authenticate exact path='/dashboard' component={Dashboard} />
           <Authenticate exact path='/members' component={Members} />
-          {/* <Authenticate exact path='/profile' component={Profile} /> */}
-          {/* <Authenticate exact path='/members' component={Members} /> */}
+          <Authenticate exact path='/profiles-list' component={ProfilesList} />
+          <Authenticate exact path='/profile/:_id?' component={Profile} />
           {/* <Authenticate exact path='/posts' component={PostPage} /> */}
           {/* <Authenticate exact path='/post-admin' component={PostAdmin} /> */}
           {/* <Authenticate exact path='/access-admin' component={AccessAdmin} /> */}

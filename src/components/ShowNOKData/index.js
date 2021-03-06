@@ -4,7 +4,7 @@ const ShowNOKData = ({nok}) => {
   const { nok_name, nok_email, nok_address, nok_occupation, nok_phone, nok_relation} = nok;
   return ( 
     <Fragment>
-      <section className="section">
+      <section className="">
             <header className="section-header">
               <h2 className="title"> Next of Kin Data</h2>
             </header>
@@ -35,11 +35,7 @@ const ShowNOKData = ({nok}) => {
               </div> 
                             
             </div>
-            {/* {
-              isProfileOwner(_id, member._id) &&
-            <span onClick={() => setNokVisibility(true)} className='btn btn-sm btn-primary fa fa-edit'> &nbsp;Next of Kin</span>
-            }
-             */}
+           
           </section>
     </Fragment>
    );

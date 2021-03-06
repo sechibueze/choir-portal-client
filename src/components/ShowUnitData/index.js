@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-const ShowUnitInfo = ({ unitInfo }) => {
-  const {group, rehearsal_location, vocal_part, membership_status, leadership_status, sub_group} = unitInfo;
+const ShowUnitData = ({ unitData }) => {
+  const {group, rehearsal_location, vocal_part, membership_status, leadership_status, sub_group} = unitData;
   return ( 
     <Fragment>
-      <section className="section">
+      <section className="">
             <header className="section-header">
               <h2 className="title"> Choir Role Data</h2>
             </header>
@@ -44,4 +44,4 @@ const ShowUnitInfo = ({ unitInfo }) => {
    );
 }
  
-export default ShowUnitInfo;
+export default ShowUnitData;

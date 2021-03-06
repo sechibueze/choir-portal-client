@@ -1,73 +1,215 @@
 import {
-  LOAD_MEMBER_PROFILE,
-  UPDATE_AUTH_DATA,
-  UPDATE_CHURCH_INFO,
-  UPDATE_NOK_INFO,
-  UPDATE_UNIT_INFO,
-  CREATE_MEMBER_PROFILE,
-  UPDATE_MEMBER_PROFILE,
-  DELETE_PROFILE
+  RESET_PROFILE_DATA,
+
+  GET_PROFILES_FAIL,
+  GET_PROFILES_REQUEST,
+  GET_PROFILES_SUCCESS,
+
+  GET_PROFILE_FAIL,
+  GET_PROFILE_REQUEST,
+  GET_PROFILE_SUCCESS,
+
+  ME_PROFILE_FAIL,
+  ME_PROFILE_REQUEST,
+  ME_PROFILE_SUCCESS,
+
+  PERSONAL_DATA_FAIL,
+  PERSONAL_DATA_SUCCESS,
+  PERSONAL_DATA_REQUEST,
+
+  NOK_DATA_FAIL,
+  NOK_DATA_SUCCESS,
+  NOK_DATA_REQUEST,
+
+  CHURCH_DATA_FAIL,
+  CHURCH_DATA_SUCCESS,
+  CHURCH_DATA_REQUEST,
+
+  UNIT_DATA_FAIL,
+  UNIT_DATA_SUCCESS,
+  UNIT_DATA_REQUEST,
+
+  DELETE_PROFILES_FAIL,
+  DELETE_PROFILES_SUCCESS,
+  DELETE_PROFILES_REQUEST,
+
 } from '../_actions/types';
 const initialState = {
-  memberProfile: null,
-  updatedAuthData: null,
-  updatedChurchInfo: null,
-  updatedNOKInfo: null,
-  updatedUnitInfo: null,
-  newProfile: null,
-  updatedMemberProfile: null,
-  deletedProfile: null
+  profiles: [],
+  profilesRequest: false,
 
-  // createCurrentMemberProfile: null,
-  // updatedMemberProfile: null,
-  // deleteCurrentMemberProfile: null,
+  profile: null,
+  profileRequest: false,
+  
+  personaleData: null,
+  personaleDataRequest: false,
+
+  nokData: null,
+  nokDataRequest: false,
+  
+  churchData: null,
+  churchDataRequest: false,
+
+  unitData: null,
+  unitDataRequest: false,
+  
+  meProfileData: null,
+  meProfileDataRequest: false,
+
+  noProfileData: null,
+  noProfileDataRequest: false,
+
 };
 export default function (state = initialState, action) {
   const { type, payload} = action;
 
   switch (type) {
-    case LOAD_MEMBER_PROFILE:
+    case RESET_PROFILE_DATA:
       return {
         ...state,
-        memberProfile: payload
+        personalData: null,
+        nokData: null,
+        churchData: null,
+        unitData: null,
       };
-    case UPDATE_AUTH_DATA:
+    // Get Profiles
+    case GET_PROFILES_REQUEST:
       return {
         ...state,
-        updatedAuthData: payload
+        profilesRequest: true
       };
-
-    case UPDATE_CHURCH_INFO:
+    case GET_PROFILES_SUCCESS:
       return {
         ...state,
-        updatedChurchInfo: payload
+        profilesRequest: false,
+        profiles: payload
       };
-    case UPDATE_NOK_INFO:
+    case GET_PROFILES_FAIL:
       return {
         ...state,
-        updatedNOKInfo: payload
+        profilesRequest: false
       };
-    case UPDATE_UNIT_INFO:
+    // NOK data
+    case NOK_DATA_REQUEST:
       return {
         ...state,
-        updatedUnitInfo: payload
+        nokDataRequest: true
       };
-   
-    case CREATE_MEMBER_PROFILE:
+    case NOK_DATA_SUCCESS:
       return {
         ...state,
-        newProfile: payload
+        nokDataRequest: false,
+        nokData: payload
       };
-    case UPDATE_MEMBER_PROFILE:
+    case NOK_DATA_FAIL:
       return {
         ...state,
-        updatedMemberProfile: payload
+        nokDataRequest: false
       };
-    case DELETE_PROFILE:
+    // Personal data
+    case PERSONAL_DATA_REQUEST:
       return {
         ...state,
-        deletedProfile: payload
+        personalDataRequest: true
       };
+    case PERSONAL_DATA_SUCCESS:
+      return {
+        ...state,
+        personalDataRequest: false,
+        personalData: payload
+      };
+    case PERSONAL_DATA_FAIL:
+      return {
+        ...state,
+        personalDataRequest: false,
+      };
+    // Church data
+    case CHURCH_DATA_REQUEST:
+      return {
+        ...state,
+       churchDataRequest: true
+      };
+    case CHURCH_DATA_SUCCESS:
+      return {
+        ...state,
+       churchDataRequest: false,
+       churchData: payload
+      };
+    case CHURCH_DATA_FAIL:
+      return {
+        ...state,
+        churchDataRequest: false
+      };
+    // Unit data
+    case UNIT_DATA_REQUEST:
+      return {
+        ...state,
+       unitDataRequest: true
+      };
+    case UNIT_DATA_SUCCESS:
+      return {
+        ...state,
+       unitDataRequest: false,
+       unitData: payload
+      };
+    case UNIT_DATA_FAIL:
+      return {
+        ...state,
+       unitDataRequest: false
+      };
+    // No Profile
+    case DELETE_PROFILES_REQUEST:
+      return {
+        ...state,
+        noProfileDataRequest: true
+      };
+    case DELETE_PROFILES_SUCCESS:
+      return {
+        ...state,
+        noProfileDataRequest: false,
+        noProfileData: payload
+      };
+    case DELETE_PROFILES_FAIL:
+      return {
+        ...state,
+        noProfileDataRequest: false
+      };
+    // Me Profile
+    case ME_PROFILE_REQUEST:
+      return {
+        ...state,
+        meProfileDataRequest: true
+      };
+    case ME_PROFILE_SUCCESS:
+      return {
+        ...state,
+        meProfileDataRequest: false,
+        meProfileData: payload
+      };
+    case ME_PROFILE_FAIL:
+      return {
+        ...state,
+        meProfileDataRequest: false
+      };
+    
+    // Get Profile
+    case GET_PROFILE_REQUEST:
+      return {
+        ...state,
+        profileRequest: true
+      };
+    case GET_PROFILE_SUCCESS:
+      return {
+        ...state,
+        profileRequest: false,
+        profile: payload
+      };
+    case GET_PROFILE_FAIL:
+      return {
+        ...state,
+        profileRequest: false
+      };
+    
     
     default:
       return state;

@@ -1,14 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import formatDate from '../formatDate';
-const ShowPersonalInfo = ({ personal }) => {
+const ShowPersonalData = ({ personalData }) => {
+  console.log(" ShowPersonalData", personalData )
   const { 
     title, gender,
     phone, whatsapp_phone, contact_address,pha,
     dob,wed_date, work_status, profession, employer_name,
-    employer_address, state_origin, nationality} = personal;
+    employer_address, state_origin, nationality} = personalData;
   return ( 
-    <Fragment>
-       <section className="section">
+ 
+       <section className="">
             <header className="section-header">
               <h2 className="title"> Personal Data</h2>
             </header>
@@ -71,15 +72,11 @@ const ShowPersonalInfo = ({ personal }) => {
               </div> 
               
             </div>
-            {/* {
-              isProfileOwner(_id, member._id) &&
-
-              <span onClick={() => setPersonalVisibility(true)} className='btn btn-sm btn-primary fa fa-edit'> &nbsp;PersonalData</span>
-            } */}
+        
             
           </section>
-    </Fragment>
+  
    );
 }
  
-export default ShowPersonalInfo;
+export default ShowPersonalData;

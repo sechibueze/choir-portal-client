@@ -21,13 +21,18 @@ import {
   ADD_NEW_MEMBER_REQUEST,
   RESET_MEMBER_DATA,
 
+  MEMBERS_UPLOAD_FAIL,
+  MEMBERS_UPLOAD_REQUEST,
+  MEMBERS_UPLOAD_SUCCESS,
+
+  MEMBER_IMAGE_FAIL,
+  MEMBER_IMAGE_REQUEST,
+  MEMBER_IMAGE_SUCCESS,
+
   // ----
   LOADING,
   LOADED,
-  GET_MEMBER_PROFILE,
-  CLEAR_MEMBER_PROFILE,
-  UPDATE_MEMBER_IMAGE,
-  DELETE_MEMBER,
+
   SEND_PASSWORD_RESET_TOKEN,
   RESET_MEMBER_PASSWORD,
 } from '../_actions/types';
@@ -68,6 +73,23 @@ export const addNewMember = (newMemberData) => dispatch => {
     });
 };
 
+export const uploadMembers = (fd) => dispatch => {
+  dispatch({ type: MEMBERS_UPLOAD_REQUEST });
+  const configHeaders = getConfigHeaders("multipart/form-data");
+  const uri = `${BACKEND_URL}/api/members/uploads`;
+  axios.post(uri, fd, configHeaders)
+    .then(({ data }) => {
+      console.log('[uploadMembers]data ', data)
+      dispatch({ type: MEMBERS_UPLOAD_SUCCESS, payload: data.data });
+      dispatch(setAlert("New members uploaded", MEMBERS_UPLOAD_SUCCESS, "success"));
+    })
+    .catch(err => {
+      console.log('[uploadMembers] error', {err});
+      dispatch(handleResponseErrors(err, MEMBERS_UPLOAD_FAIL));
+      dispatch({ type: MEMBERS_UPLOAD_FAIL });
+    });
+};
+
 export const editMember = (newMemberData) => dispatch => {
   dispatch({ type: EDIT_MEMBER_REQUEST });
   const configHeaders = getConfigHeaders();
@@ -96,8 +118,9 @@ export const toggleAdminRole = memberData => dispatch => {
       dispatch(setAlert("Members role has been changed", TOGGLE_ADMIN_SUCCESS, "success"));
     })
     .catch(err => {
-      console.log('[toggleAdminRole]:error ', err)
+      console.log('[toggleAdminRole]:error ', {err})
       dispatch(handleResponseErrors(err, TOGGLE_ADMIN_FAIL));
+      dispatch({type: TOGGLE_ADMIN_FAIL})
     });
 };
 
@@ -118,42 +141,48 @@ export const deleteMembers = memberData => dispatch => {
     });
 };
 
+export const updateMemberImage = imageData => dispatch => {
+  dispatch({ type: MEMBER_IMAGE_REQUEST });
+  const configHeaders = getConfigHeaders('multipart/form-data');
+  const uri = `${BACKEND_URL}/api/members/image`;
+  axios.put(uri, imageData, configHeaders)
+    .then(({ data }) => {
+      console.info("[updateMemberImage]:data", data)
+      dispatch({ type: MEMBER_IMAGE_SUCCESS, payload: data.data });
+      dispatch(setAlert(data.message, MEMBER_IMAGE_SUCCESS, "success"));
+    })
+    .catch(err => {
+      console.info("[updateMemberImage]:error", {err})
+      dispatch(handleResponseErrors(err, MEMBER_IMAGE_FAIL));
+      dispatch({ type: MEMBER_IMAGE_FAIL})
+    });
+};
+
 export const resetMemberData = () => dispatch => {
   dispatch({ type: RESET_MEMBER_DATA });
 };
 
-// ----------------------------------------------------
-export const loadProfileByMemberId = memberId => dispatch => {
-  dispatch({ type: LOADING });
-  const configHeaders = getConfigHeaders();
-  // localhost:5000/api/profiles/members/5edcbc05c66bd7109c75f07d/
-  axios.get(`/api/profiles/members/${memberId}`, configHeaders)
-    .then(({ data }) => {
-      console.log('Loaded members ', data)
-      dispatch({ type: GET_MEMBER_PROFILE, payload: data.data });
-      dispatch({ type: LOADED });
-    })
-    .catch(err => {
-      console.log('Error iin loading members', err)
-      dispatch(handleResponseErrors(err, 'PROFILE'));
-    });
-};
-export const clearMemberProfile = () => dispatch => {
-  dispatch({ type: CLEAR_MEMBER_PROFILE });
-};
+// -------------------------------------------------------------------------------------------
+// export const loadProfileByMemberId = memberId => dispatch => {
+//   dispatch({ type: LOADING });
+//   const configHeaders = getConfigHeaders();
+//   // localhost:5000/api/profiles/members/5edcbc05c66bd7109c75f07d/
+//   axios.get(`/api/profiles/members/${memberId}`, configHeaders)
+//     .then(({ data }) => {
+//       console.log('Loaded members ', data)
+//       dispatch({ type: GET_MEMBER_PROFILE, payload: data.data });
+//       dispatch({ type: LOADED });
+//     })
+//     .catch(err => {
+//       console.log('Error iin loading members', err)
+//       dispatch(handleResponseErrors(err, 'PROFILE'));
+//     });
+// };
+// export const clearMemberProfile = () => dispatch => {
+//   dispatch({ type: CLEAR_MEMBER_PROFILE });
+// };
 
-export const updateMemberImage = imageData => dispatch => {
-  dispatch({ type: LOADING });
-  const configHeaders = getConfigHeaders('multipart/form-data');
-  axios.put('/api/members/image', imageData, configHeaders)
-    .then(({ data }) => {
-      dispatch({ type: UPDATE_MEMBER_IMAGE, payload: data.data });
-      dispatch({ type: LOADED });
-    })
-    .catch(err => {
-      dispatch(handleResponseErrors(err, 'MEMBER_IMAGE'));
-    });
-};
+
 
 export const sendPasswordResetToken = data => dispatch => {
   dispatch({ type: LOADING });
@@ -206,19 +235,19 @@ export const resetMemberPassword = (data, history = '') => dispatch => {
 };
 
 
-export const deleteMemberById = memberId => dispatch => {
-  dispatch({ type: LOADING });
-  const configHeaders = getConfigHeaders();
-  axios.delete(`/api/members/${ memberId}`, configHeaders)
-    .then(({ data }) => {
-      console.log('Currently logged in member profile ', data)
-      dispatch({ type: DELETE_MEMBER, payload: data.data });
-      dispatch({ type: LOADED });
-    })
-    .catch(err => {
-      console.log('Error in loading currently logged in member profile ', err)
-      dispatch(handleResponseErrors(err, 'DELETE_MEMBER'));
-    });
-};
+// export const deleteMemberById = memberId => dispatch => {
+//   dispatch({ type: LOADING });
+//   const configHeaders = getConfigHeaders();
+//   axios.delete(`/api/members/${ memberId}`, configHeaders)
+//     .then(({ data }) => {
+//       console.log('Currently logged in member profile ', data)
+//       dispatch({ type: DELETE_MEMBER, payload: data.data });
+//       dispatch({ type: LOADED });
+//     })
+//     .catch(err => {
+//       console.log('Error in loading currently logged in member profile ', err)
+//       dispatch(handleResponseErrors(err, 'DELETE_MEMBER'));
+//     });
+// };
 
 

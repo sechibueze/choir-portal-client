@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { clearAlert } from '../../_actions/alertActions';
-
+import "./Alert.scss";
 const Alert = ({ alertBucket, origin, type, clearAlert }) => {
   const displayAlerts = origin ? alertBucket.filter(alert => alert.origin === origin) : alertBucket;
   return (

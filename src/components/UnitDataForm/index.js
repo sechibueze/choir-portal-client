@@ -1,24 +1,23 @@
-import React, { Fragment, useState, useEffect} from 'react';
+import React, { Fragment, useState} from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import Alert from '../Alert';
-import { updateUnitInfo } from '../../_actions/profileActions'
+import { updateUnitData } from '../../_actions/profileActions'
 import { setAlert } from '../../_actions/alertActions';
-import {VOCAL_PARTS, GROUPS, REHEARSAL_LOCATION, MEMBERSHIP_STATUS, LEADERSHIP_STATUS, SUB_GROUP} from '../constants';
+import {VOCAL_PARTS, GROUPS, REHEARSAL_LOCATION, MEMBERSHIP_STATUS, LEADERSHIP_STATUS, SUB_GROUP} from '../../constants';
+import { UNIT_DATA_FAIL } from '../../_actions/types';
 
-const EditUnitInfo = ({ unitInfo, closeModal, setAlert, updateUnitInfo, updatedUnitInfo}) => {
+const UnitDataForm = ({_id, currentMember, unitData, unitDataRequest, setAlert, updateUnitData}) => {
   const [data, setData] = useState({
-    group: unitInfo.group ? unitInfo.group : '', 
-    rehearsal_location: unitInfo.rehearsal_location ? unitInfo.rehearsal_location : '', 
-    vocal_part: unitInfo.vocal_part ? unitInfo.vocal_part : '', 
-    membership_status: unitInfo.membership_status ? unitInfo.membership_status : '', 
-    leadership_status: unitInfo.leadership_status ? unitInfo.leadership_status : '', 
-    sub_group: unitInfo.sub_group ? unitInfo.sub_group : ''
+    _id: _id && currentMember.auth.includes("admin") ? _id : "",
+    group: unitData.group ? unitData.group : '', 
+    rehearsal_location: unitData.rehearsal_location ? unitData.rehearsal_location : '', 
+    vocal_part: unitData.vocal_part ? unitData.vocal_part : '', 
+    membership_status: unitData.membership_status ? unitData.membership_status : '', 
+    leadership_status: unitData.leadership_status ? unitData.leadership_status : '', 
+    sub_group: unitData.sub_group ? unitData.sub_group : ''
     })
-  useEffect(() => { 
-    if(updatedUnitInfo !== null ) closeModal()
-  }, [updatedUnitInfo])
-  
+
   const handleChange = ({ target}) => {
     setData(prev => ({
       ...prev,
@@ -28,7 +27,7 @@ const EditUnitInfo = ({ unitInfo, closeModal, setAlert, updateUnitInfo, updatedU
   }
    const updateData = e => {
     e.preventDefault();
-    updateUnitInfo(data)
+    updateUnitData(data)
   }
   // const {group, rehearsal_location, vocal_part, membership_status, leadership_status, sub_group } = data;
   return ( 
@@ -40,7 +39,7 @@ const EditUnitInfo = ({ unitInfo, closeModal, setAlert, updateUnitInfo, updatedU
           </h3>
         </header>
         <form onSubmit={updateData} className="form">
-          <Alert origin='UNIT_INFO_UPDATE'/>
+          <Alert origin={UNIT_DATA_FAIL}/>
           <div className="form-group">
             <label htmlFor="group"> Group</label>
             <select name="group"  onChange={handleChange} id="group" className="form-control" >
@@ -112,21 +111,24 @@ const EditUnitInfo = ({ unitInfo, closeModal, setAlert, updateUnitInfo, updatedU
               }
             </select>
           </div>
-          <button type="submit" className="btn btn-sm btn-primary fa fa-check"> &nbsp;&nbsp; Update Choir Roles
-            Data</button>
+          <button type="submit" className="btn btn-sm btn-primary fa fa-check"> 
+            {
+              unitDataRequest ? "processing..." : "Update Choir Roles Data"
+            }
+          </button>
         </form>
       </section>
     </Fragment>
    );
 }
  
-EditUnitInfo.propTypes = {
-  updateUnitInfo: PropTypes.func.isRequired,
+UnitDataForm.propTypes = {
+  updateUnitData: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  updatedUnitInfo: state.profiles.updatedUnitInfo,
-  loading: state.auth.loading
+  unitDataRequest: state.profiles.unitDataRequest,
+  currentMember: state.auth.currentMember,
 });
-export default connect(mapStateToProps, { setAlert, updateUnitInfo})(EditUnitInfo);
+export default connect(mapStateToProps, { setAlert, updateUnitData })(UnitDataForm);
 

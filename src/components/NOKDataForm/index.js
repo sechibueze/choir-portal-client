@@ -1,14 +1,17 @@
-import React, { Fragment, useState, useEffect} from 'react';
+import React, { Fragment, useState} from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import Alert from '../Alert';
-import { updateNOKInfo } from '../../_actions/profileActions'
+import { updateNOKData } from '../../_actions/profileActions'
 import { setAlert } from '../../_actions/alertActions';
-import { TEXT_ONLY_PATTERN, PHONE_NUMBER_PATTERN, TEXT_WITH_SPACE } from '../constants';
+import {  PHONE_NUMBER_PATTERN, TEXT_WITH_SPACE } from '../../constants';
+import { NOK_DATA_FAIL } from '../../_actions/types';
+// import { getCurrentMemberProfile } from '../../../../server/controllers/ProfileControllers';
 
-const EditNOK = ({ nok, closeModal, setAlert, updatedNOKInfo, updateNOKInfo}) => {
+const NOKDataForm = ({ nok, _id, setAlert, currentMember, updateNOKData, nokDataRequest}) => {
 
   const [data, setData] = useState({
+      _id: _id && currentMember.auth.includes("admin") ? _id : "",
       nok_name: nok.nok_name? nok.nok_name : '',
       nok_address: nok.nok_address? nok.nok_address : '',
       nok_phone: nok.nok_phone? nok.nok_phone : '',
@@ -17,9 +20,6 @@ const EditNOK = ({ nok, closeModal, setAlert, updatedNOKInfo, updateNOKInfo}) =>
       nok_email: nok.nok_email? nok.nok_email : ''
     })
 
-  useEffect(() => { 
-   if(updatedNOKInfo !== null ) closeModal()
-  }, [updatedNOKInfo])
   
   const handleChange = ({ target}) => {
     setData(prev => ({
@@ -30,7 +30,8 @@ const EditNOK = ({ nok, closeModal, setAlert, updatedNOKInfo, updateNOKInfo}) =>
   }
    const updateData = e => {
     e.preventDefault();
-    updateNOKInfo(data)
+    console.log("submitted NOK data", data)
+    updateNOKData(data)
   }
   const {nok_name, nok_phone, nok_email, nok_address, nok_occupation } = data;
 
@@ -44,7 +45,7 @@ const EditNOK = ({ nok, closeModal, setAlert, updatedNOKInfo, updateNOKInfo}) =>
         </header>
         <form className="form" onSubmit={updateData}>
 
-          <Alert origin='NOK_INFO_UPDATE' />
+          <Alert origin={NOK_DATA_FAIL} />
           <div className="form-group">
             <label htmlFor="nok_name"> Name of next of kin</label>
             <input type="text" pattern={TEXT_WITH_SPACE} name="nok_name" onChange={handleChange} value={nok_name} id="nok_name" className="form-control"  />
@@ -82,27 +83,31 @@ const EditNOK = ({ nok, closeModal, setAlert, updatedNOKInfo, updateNOKInfo}) =>
               <option value="Spouse"> Spouse</option>
               <option value="Parent"> Parent</option>
               <option value="Sibling"> Sibling</option>
-              <option value="Relative"> Mentor</option>
+              <option value="Mentor"> Mentor</option>
               <option value="Protege"> Protege</option>
 
             </select>
           </div>
 
-          <button type="submit" className="btn btn-sm btn-primary fa fa-check"> &nbsp;&nbsp; Update Next of Kin
-            Data</button>
+          <button type="submit" className="btn btn-sm btn-primary fa fa-check"> 
+           {
+             nokDataRequest ? "processing..." : "Update Next of Kin Data"
+           }
+          </button>
         </form>
       </section>
     </Fragment>
    );
 }
  
-EditNOK.propTypes = {
-  updateNOKInfo: PropTypes.func.isRequired,
+NOKDataForm.propTypes = {
+  updateNOKData: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  updatedNOKInfo: state.profiles.updatedNOKInfo,
-  loading: state.auth.loading
+  nokDataRequest: state.profiles.nokDataRequest,
+  nokData: state.profiles.nokData,
+  currentMember: state.auth.currentMember,
 });
-export default connect(mapStateToProps, { setAlert, updateNOKInfo})(EditNOK);
+export default connect(mapStateToProps, { setAlert, updateNOKData})(NOKDataForm);
 

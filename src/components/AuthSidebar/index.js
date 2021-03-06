@@ -14,9 +14,10 @@ const AuthSidebar = ({ currentMember, logout }) => {
               </Link>
             </header>
             <div className="sidebar-actions">
-              <Link to="/dashboard" className="sidebar-action-link"> <span className="fa fa-dashboard admin-sidebar-icon"/> Dashboard</Link>
+              <Link to="/dashboard" className="sidebar-action-link"> <span className="fas fa-paper-plane admin-sidebar-icon"/> Dashboard</Link>
+              <Link to="/profile" className="sidebar-action-link"> <span className="fas fa-id-card admin-sidebar-icon"/> Profile </Link>
               <Link to="/members" className="sidebar-action-link"> <span className="fa fa-users admin-sidebar-icon"/> Members </Link>
-              <Link to="/profiles" className="sidebar-action-link"> <span className="fa fa-comment-dots admin-sidebar-icon"/> Profiles </Link>
+              <Link to="/profiles-list" className="sidebar-action-link"> <span className="fas fa-id-card admin-sidebar-icon"/> Profiles </Link>
               {
                 currentMember && currentMember.auth.includes('admin') && (
                   <Fragment>
