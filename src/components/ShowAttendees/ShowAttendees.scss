@@ -1,0 +1,22 @@
+.data-card {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.data-id {
+  padding: 1rem;
+  text-align: center;
+}
+
+.data-info {
+  padding: 0.5rem;
+  text-align: left;
+}
+.meta-data small {
+  padding: 0.3rem 0.9rem;
+}

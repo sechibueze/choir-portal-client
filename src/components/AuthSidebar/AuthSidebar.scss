@@ -1,107 +1,109 @@
-@import '../../Root.scss';
+@import "../../Root.scss";
 
-#sidebar-switcher{
-    user-select: none;
-    // position: absolute;
-    display: none;
-  }
-  #sidebar-switcher:checked ~ .sidebar{
-    left: 0;
-  }
-  #sidebar-switcher:checked ~ .sidebar-outer{
-    left: 0;
+#sidebar-switcher {
+  user-select: none;
+  // position: absolute;
+  display: none;
+}
+#sidebar-switcher:checked ~ .sidebar {
+  left: 0;
+}
+#sidebar-switcher:checked ~ .sidebar-outer {
+  left: 0;
+  display: block;
+}
+.toggle-sidebar {
+  // The Hamburger menu icon
+  color: $primary-color;
+}
+.sidebar-outer {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit between the sidebar and the body content */
+  left: -50rem;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+  transition: left 0.5s ease-in-out;
+}
+.sidebar {
+  z-index: 999; /* sit on top*/
+  position: absolute;
+  top: 0;
+  left: -120rem; /** hide sidebar by default**/
+  width: 15rem;
+  height: 100%;
+  background-color: $primary-color;
+  transition: left 0.5s ease-in-out;
+  header {
     display: block;
+    width: 85%;
+    margin: auto;
+    text-align: left;
+    height: auto;
+    max-height: 5rem;
+    padding: 1.2rem 0rem;
   }
-  .toggle-sidebar{// The Hamburger menu icon
+}
+.admin-logo {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+.admin-logo-icon,
+.admin-logo-name {
+  display: inline-block;
+  color: $secondary-color;
+}
+.admin-logo-name {
+  font-size: 1.1rem;
+  font-weight: bolder;
+}
+.sidebar-close-btn {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 5px;
+  cursor: pointer;
+  color: $light-color;
+  background-color: $primary-color;
+  transition: background-color 0.5s ease-in-out;
+  &:hover {
+    background-color: $light-color;
     color: $primary-color;
   }
-  .sidebar-outer{
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit between the sidebar and the body content */
-    left: -50rem;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0, 0, 0.7); /* Black w/ opacity */
-    transition: left .5s ease-in-out;
+}
+.sidebar-actions {
+  // container class for sidebar links
+  display: block;
+  width: 100%;
+  margin-top: 3rem;
+  background-color: inherit;
+}
+
+.sidebar-action-link {
+  padding: 0.5rem 0rem;
+  padding-left: 1rem;
+  display: block;
+  color: $light-color;
+  background-color: inherit;
+  border-bottom: 1px solid $light-color;
+  cursor: pointer;
+  transition: background-color 0.5s ease-in-out;
+  &:hover {
+    background-color: $light-color;
+    opacity: 0.4;
+    color: $primary-color;
   }
-  .sidebar{
-    z-index: 999; /* sit on top*/
-    position: absolute;
-    top: 0;
-    left: -120rem; /** hide sidebar by default**/
-    width: 15rem;
-    height: 100%;
-    background-color: $primary-color;
-    transition: left .5s ease-in-out;
-    header{
-      display: block;
-      width: 70%;
-      margin: auto;
-      text-align: left;
-      height: auto;
-      max-height: 5rem;
-      padding: 1.2rem 0rem;
-      
-    }
-    
-  }
-  .admin-logo{
-    display: block;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-  }
-  .admin-logo-icon, .admin-logo-name{
-    display: inline-block;
-    color: $secondary-color;
-  }
-  .admin-logo-name{
-    font-size: 1.3rem;
-    font-weight: bolder;
-  }
-  .sidebar-close-btn {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    padding: 5px;
-    cursor: pointer;
-    color: $light-color;
-    background-color: $primary-color;
-    transition: background-color .5s ease-in-out;
-    &:hover{
-      background-color: $light-color;
-      color: $primary-color;
-    }
-  }
-  .sidebar-actions{ // container class for sidebar links
-    display: block;
-    width: 100%;
-    margin-top: 3rem;
-    background-color: inherit;
-  }
-  
-  .sidebar-action-link{
-    padding: .5rem 0rem;
-    padding-left: 1rem;
-    display: block;
-    color: $light-color;
-    background-color: inherit;
-    border-bottom: 1px solid $light-color;
-    cursor: pointer;
-    transition: background-color .5s ease-in-out;
-    &:hover{
-      background-color: $light-color;
-      opacity: .4;
-      color: $primary-color;
-    }
-  }
-  
-  .admin-sidebar-icon{
-    margin-right: .6rem;
-    color: inherit;
-    text-align: left;
-  }
+}
+
+.admin-sidebar-icon {
+  margin-right: 0.6rem;
+  color: inherit;
+  text-align: left;
+}

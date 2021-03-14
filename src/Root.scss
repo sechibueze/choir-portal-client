@@ -1,10 +1,6 @@
-
-  
 /****/
 
-
 @import "./COLORS.scss";
-
 
 /****************** TOC****************/
 // Global
@@ -13,133 +9,131 @@
 // Forms
 // table
 
-
-*{
+* {
   margin: 0;
   padding: 0;
   resize: none;
   list-style: none;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-//   font-family: 'Poppins', sans-serif;
-
+  font-family: "Poppins", sans-serif;
+  //   font-family: 'Poppins', sans-serif;
 }
 
-html{
+html {
   font-size: 16px;
   line-height: 1.5;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-.container, .container-fluid{
+main {
+  padding-bottom: 5rem;
+}
+.container,
+.container-fluid {
   width: 80%;
   display: block;
   margin: auto;
   @media screen and (max-width: $tablet-size) {
-    &{
+    & {
       width: 99%;
     }
   }
 }
-.container-fluid{
+.container-fluid {
   width: 90%;
 }
 
-
-.data-box{
+.data-box {
   width: 70%;
   margin: auto;
   padding: 1.2rem;
   border: 1px solid #f9f9f9;
-  border-radius: .8rem;
-
+  border-radius: 0.8rem;
 }
-.data-section{
-  background-color: #CCC;
+.data-section {
+  background-color: #ccc;
 }
-.data{
+.data {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   text-align: center;
   padding: 1rem 0rem;
-  .data-field{
+  .data-field {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 1rem;
     // background-color: #eee;
-    .data-key{
+    .data-key {
       font-weight: bolder;
       margin-right: 2.75rem;
     }
   }
 }
-.data-cta{
+.data-cta {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding: .5rem 0rem;
+  padding: 0.5rem 0rem;
 }
 // Buttons
-.btn{
-  padding: .8rem 1.2rem;
+.btn {
+  padding: 0.8rem 1.2rem;
   text-align: center;
   border: none;
   outline: none;
   transition: all 0.4s;
-  &-primary{
+  &-primary {
     background-color: $primary-color;
     color: $light-color;
   }
-  &-reverse{
+  &-reverse {
     background-color: $light-color;
     color: $primary-color;
   }
-  &:hover{
-    opacity: .8;
+  &:hover {
+    opacity: 0.8;
   }
 }
 
 /*********************** CARD***********************/
-.card-wrapper{
+.card-wrapper {
   display: flex;
   flex-direction: row;
-  column-gap: .7rem;
+  column-gap: 0.7rem;
   justify-content: center;
   align-content: center;
   @media screen and (max-width: $mobile-size) {
     display: block;
     margin: auto;
     width: 100%;
-
   }
-
 }
 
 /*********************** FORMS *********************/
-label{
+label {
   display: block;
-  font-size: .9rem;
-  padding-bottom: .2rem;
+  font-size: 0.9rem;
+  padding-bottom: 0.2rem;
   text-align: left;
 }
-form{
+form {
   width: 100%;
   margin: auto;
 }
-.tip{
+.tip {
   display: block;
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-style: oblique;
 }
-.form-group{
+.form-group {
   display: block;
   width: 100%;
   margin-bottom: 1.2rem;
@@ -151,56 +145,55 @@ form{
     row-gap: 1rem;
     margin-bottom: 1.2rem;
 
-    .form-item{
+    .form-item {
       width: 48%;
       flex-flow: row;
     }
-    .form-item:first-of-type{
+    .form-item:first-of-type {
       margin-right: 1.3rem;
     }
   }
-
 }
 
-.form-control{
+.form-control {
   display: block;
   width: 100%;
-  padding: .4rem ;
+  padding: 0.4rem;
   font-size: 1.1rem;
   outline: none;
   border: none;
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
   // color: $dark-color;
 }
-
 
 // Pills
 
 // ******************************** TABLE *****************************//
-.table{
+.table {
   width: 100%;
-  
-  thead{
+
+  thead {
     font-weight: bolder;
   }
   // th{
   //   background-color: $primary-color;
   //   color: $light-color;
   // }
-  tr:hover{
+  tr:hover {
     background-color: #ddd;
   }
-  tr:nth-child(even){
-    background-color: #CCC;
+  tr:nth-child(even) {
+    background-color: #ccc;
   }
-  th{
+  th {
     height: 2.5rem;
     text-align: left;
   }
-  td{
+  td {
     vertical-align: middle;
   }
-  th, td{
+  th,
+  td {
     padding: 1rem;
     text-align: left;
     border-bottom: 1ps solid #ddd;
@@ -208,7 +201,7 @@ form{
 }
 /*************** UTILITY ********************/
 // Set text color based on background color
-@function set-text-color($bg-color){
+@function set-text-color($bg-color) {
   @if (lightness($bg-color) > 55) {
     @return #06002d;
   } @else {
@@ -216,7 +209,7 @@ form{
   }
 }
 // set Background Color
-@mixin set-background-color($color){
+@mixin set-background-color($color) {
   background-color: $color;
   color: set-text-color($color);
 }
@@ -224,62 +217,60 @@ form{
 $sizes: (1, 2, 3, 4);
 @each $size in $sizes {
   // All round padding
-  .p-#{$size}{
+  .p-#{$size} {
     padding: #{$size}rem;
   }
   // Padding top and bottom
-  .py-#{$size}{
+  .py-#{$size} {
     padding: #{$size}rem 0rem;
   }
   // Padding left and right
-  .px-#{$size}{
+  .px-#{$size} {
     padding: 0rem #{$size}rem;
   }
   // Padding right
-  .pr-#{$size}{
+  .pr-#{$size} {
     padding-right: #{$size}rem;
   }
   // Padding left
-  .pl-#{$size}{
+  .pl-#{$size} {
     padding-left: #{$size}rem;
   }
   // Padding top
-  .pt-#{$size}{
+  .pt-#{$size} {
     padding-top: #{$size}rem;
   }
   // Padding bottom
-  .pb-#{$size}{
+  .pb-#{$size} {
     padding-bottom: #{$size}rem;
   }
 
-
-
   // All round margin
-  .m-#{$size}{
+  .m-#{$size} {
     margin: #{$size}rem;
   }
   // Margin top and bottom
-  .my-#{$size}{
+  .my-#{$size} {
     margin: #{$size}rem auto;
   }
   // margin left and right
-  .mx-#{$size}{
+  .mx-#{$size} {
     margin: 0rem #{$size}rem;
   }
   // margin top
-  .mt-#{$size}{
+  .mt-#{$size} {
     margin-top: #{$size}rem;
   }
   // margin bottom
-  .mb-#{$size}{
+  .mb-#{$size} {
     margin-bottom: #{$size}rem;
   }
   // margin right
-  .mr-#{$size}{
+  .mr-#{$size} {
     margin-right: #{$size}rem;
   }
   // margin left
-  .ml-#{$size}{
+  .ml-#{$size} {
     margin-left: #{$size}rem;
   }
 }
@@ -314,41 +305,39 @@ $sizes: (1, 2, 3, 4);
 // }
 
 // Backgrounds
-.bg{
-  &-dark{
-    @include set-background-color($dark-color)
+.bg {
+  &-dark {
+    @include set-background-color($dark-color);
   }
 
-  &-primary{
-    @include set-background-color($primary-color)
+  &-primary {
+    @include set-background-color($primary-color);
   }
-  &-light{
-    @include set-background-color($light-color)
+  &-light {
+    @include set-background-color($light-color);
   }
-  &-success{
-    @include set-background-color($success-color)
+  &-success {
+    @include set-background-color($success-color);
   }
 
-  &-danger{
-    @include set-background-color($danger-color)
+  &-danger {
+    @include set-background-color($danger-color);
   }
 }
 /*************** SECTIONS & HEADERS ********************/
-.section{
+.section {
   padding: 4rem 0rem;
-  border-bottom: 1px solid #F1F1F1;
+  border-bottom: 1px solid #f1f1f1;
   @media screen and (max-width: $tablet-size) {
     padding: 2rem 0rem;
   }
 
-  &-title{
+  &-title {
     display: block;
     width: 50%;
     text-align: center;
     margin: 1.8rem auto;
     font-size: 1.8rem;
     position: relative;
-    
   }
 }
-
