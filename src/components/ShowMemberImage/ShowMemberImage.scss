@@ -1,12 +1,19 @@
-
-.image-box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 14rem;
+  margin: auto;
+  text-align: center;
 }
-.profile-image{
-    
-    padding: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 50%;
+.profile-image {
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}
+.edit-image-icon {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
 }

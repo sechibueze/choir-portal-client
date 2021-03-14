@@ -1,91 +1,70 @@
-import React, { useState, Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Alert from '../Alert';
-import { sendPasswordResetToken } from '../../_actions/memberActions';
-// import { gql, useMutation } from '@apollo/client';
-// const SEND_PASSWORD_RESET_TOKEN_MUTATION = gql`
-//   mutation sendPasswordResetLink($email: String!){
-//     sendPasswordResetLink(email: $email){
-//       status
-//       error
-//       data
-//     }
-//   }
-// `
-const ForgotPassword = ({
-  loading,
-  sendPasswordResetToken,
-  // passwordResetToken,
+import React, { useState, Fragment } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Alert from "../Alert";
+import { sendPasswordResetToken } from "../../_actions/memberActions";
+import {
+  PASSWORD_TOKEN_FAIL,
+  PASSWORD_TOKEN_SUCCESS,
+} from "../../_actions/types";
 
+const ForgotPasswordForm = ({
+  sendPasswordResetToken,
+  passwordTokenRequest,
 }) => {
-  // const [ errors, setErrors] = useState({});
-  const [data, setData] = useState({ email: ''});
-  // const [sendPasswordResetLink, {error, loading: processing, data: result}] = useMutation(SEND_PASSWORD_RESET_TOKEN_MUTATION, {
-  //   variables: data,
-  //   errorPolicy: 'all',
-  //   onError(error){
-  //     const { graphQLErrors, networkError} = error;
-  //     if (networkError) {
-  //       console.log('networkError ', networkError)
-  //       setErrors({message: "An error has occured"})
-  //     }
-  //     if (graphQLErrors.length > 0) {
-  //       console.log('networkError ', graphQLErrors)
-  //       const gqlErrors = graphQLErrors[0].extensions.errors;
-  //       setErrors(gqlErrors)
-  //     }
-  //   },
-  //   update(_, result){
-  //     console.log('data forgotpasslink', result)
-  //     setErrors({message: result.data.sendPasswordResetLink.data})
-  //   }
-  // })
-  const handleChange = ({target}) => {
-    setData(prev => ({
+  const [data, setData] = useState({ email: "" });
+
+  const handleChange = ({ target }) => {
+    setData((prev) => ({
       ...prev,
-      [target.name]:target.value
-    }))
-  }
+      [target.name]: target.value,
+    }));
+  };
   const handleForgotPassword = (e) => {
-    e.preventDefault()
-    sendPasswordResetToken(data)
-    // sendPasswordResetLink()
-    
-  }
-  
+    e.preventDefault();
+    sendPasswordResetToken(data);
+  };
+
   const { email } = data;
-  // console.log('errors to show', errors)
   return (
     <Fragment>
       <div className="container">
-         <form className="form" onSubmit={ handleForgotPassword}>
-           <Alert origin="SEND_PASSWORD_RESET_TOKEN" />
+        <form className="form" onSubmit={handleForgotPassword}>
+          <Alert origin={PASSWORD_TOKEN_FAIL} />
+          <Alert origin={PASSWORD_TOKEN_SUCCESS} />
           <div className="form-group">
-            <label htmlFor="email">Email <sup>*</sup></label>
-            <input type="email" name="email" value={email} onChange={handleChange} className="form-control" placeholder="jkevin@scott.com" id="email" required />
-
+            <label htmlFor="email">
+              Email <sup>*</sup>
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="jkevin@scott.com"
+              id="email"
+              required
+            />
           </div>
           <button className="btn btn-success btn-md fa fa-check">
-            
-            Send Password Reset Link
-            
+            {passwordTokenRequest
+              ? "processing..."
+              : "Send Password Reset Link"}
           </button>
-          
         </form>
       </div>
-    
     </Fragment>
   );
-}
- 
-ForgotPassword.propTypes = {
-  sendPasswordResetToken: PropTypes.func.isRequired
 };
-const mapStateToProps = state => ({
+
+ForgotPasswordForm.propTypes = {
+  sendPasswordResetToken: PropTypes.func.isRequired,
+};
+const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  loading: state.auth.loading,
-  // passwordResetToken: state.members.passwordResetToken
+  passwordTokenRequest: state.members.passwordTokenRequest,
 });
-export default connect(mapStateToProps, { sendPasswordResetToken})(ForgotPassword);
- 
+export default connect(mapStateToProps, { sendPasswordResetToken })(
+  ForgotPasswordForm
+);

@@ -1,19 +1,16 @@
-import { AUTH_TOKEN } from '../constants';
+import { AUTH_TOKEN } from "../constants";
 import {
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
-
+  SIGNUP_REQUEST,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-
   LOAD_CURRENT_MEMBER_FAIL,
   LOAD_CURRENT_MEMBER_REQUEST,
   LOAD_CURRENT_MEMBER_SUCCESS,
-
   LOGOUT,
-
-} from '../_actions/types';
+} from "../_actions/types";
 const initialState = {
   token: null,
   isAuthenticated: null,
@@ -21,32 +18,37 @@ const initialState = {
   loading: false,
 
   loginRequest: false,
+  signupRequest: false,
   currentMemberRequest: false,
-
-  
 };
 export default function (state = initialState, action) {
-  const { type, payload} = action;
+  const { type, payload } = action;
 
   switch (type) {
     case LOGIN_REQUEST:
       return {
         ...state,
-        loginRequest: true
-      }
+        loginRequest: true,
+      };
+    case SIGNUP_REQUEST:
+      return {
+        ...state,
+        signupRequest: true,
+      };
     case LOAD_CURRENT_MEMBER_REQUEST:
       return {
         ...state,
-        currentMemberRequest: true
-      }
+        currentMemberRequest: true,
+      };
     case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
         loginRequest: false,
+        signupRequest: false,
         token: payload,
-        isAuthenticated: true
+        isAuthenticated: true,
       };
     case SIGNUP_FAIL:
     case LOGIN_FAIL:
@@ -60,17 +62,17 @@ export default function (state = initialState, action) {
         isAuthenticated: null,
         loginRequest: false,
         currentMemberRequest: false,
-        currentMember: null
+        currentMember: null,
       };
     case LOAD_CURRENT_MEMBER_SUCCESS:
       return {
         ...state,
         currentMember: payload,
         currentMemberRequest: false,
-        isAuthenticated: Object.values(payload).length > 0
+        isAuthenticated: Object.values(payload).length > 0,
       };
-   
+
     default:
       return state;
   }
-};
+}
