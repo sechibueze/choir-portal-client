@@ -9,8 +9,11 @@ import Members from "./Members";
 import ProfilesList from "./ProfilesList";
 import Profile from "./Profile";
 import Events from "./Events";
+import Posts from "./Posts";
 import EventDetails from "./EventDetails";
 import ActivityProfile from "./ActivityProfile";
+import ShilohInfo from "./ShilohInfo";
+import ShilohManager from "./ShilohManager";
 
 export {
   Home,
@@ -26,4 +29,7 @@ export {
   Events,
   EventDetails,
   ActivityProfile,
+  Posts,
+  ShilohInfo,
+  ShilohManager,
 };

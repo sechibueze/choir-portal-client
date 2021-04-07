@@ -63,6 +63,9 @@ const Profile = ({
     churchData,
     unitData,
     memberImageData,
+    _meProfile,
+    currentMember.auth,
+    match.params._id,
   ]);
 
   const dismiss = () => {
@@ -77,12 +80,14 @@ const Profile = ({
     if (nokData || personalData || churchData || unitData || memberImageData)
       dismiss();
   };
-  useEffect(dismissFunction, [
+  const _dismissFunction = () => dismissFunction();
+  useEffect(_dismissFunction, [
     personalData,
     nokData,
     churchData,
     unitData,
     memberImageData,
+    _dismissFunction,
   ]);
   const StartProfileButton = () => {
     return (
