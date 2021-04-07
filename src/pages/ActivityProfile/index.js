@@ -18,7 +18,7 @@ const ActivityProfile = ({
   match,
 }) => {
   const getEvent = () => getEventActivity();
-  useEffect(getEvent, []);
+  useEffect(getEvent, [getEventActivity]);
 
   return (
     <Fragment>

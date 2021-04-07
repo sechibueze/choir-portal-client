@@ -56,7 +56,7 @@ const initialState = {
   passwordResetRequest: false,
   passwordReset: null,
 };
-export default function (state = initialState, action) {
+export default function memberReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {

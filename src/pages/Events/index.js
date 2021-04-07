@@ -36,11 +36,11 @@ const Events = ({
   const [toggledClearRows, setToggledClearRows] = useState(false);
   const [newEventModal, setNewEventModal] = useState(false);
   const [newAttendanceModal, setNewAttendanceModal] = useState(false);
-  useEffect(getEvents, [newEvent, noEventData, newAttendance]);
+  useEffect(getEvents, [newEvent, getEvents, noEventData, newAttendance]);
   const clearRowSelection = () => {
     if (!noEventDataRequest) setToggledClearRows(!toggledClearRows);
   };
-  useEffect(clearRowSelection, [noEventDataRequest]);
+  useEffect(clearRowSelection, [noEventDataRequest, clearRowSelection]);
 
   const dismiss = () => {
     setNewEventModal(false);

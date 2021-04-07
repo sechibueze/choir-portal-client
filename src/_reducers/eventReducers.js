@@ -37,7 +37,7 @@ const initialState = {
   newAttendanceRequest: false,
   newAttendance: null,
 };
-export default function (state = initialState, action) {
+export default function eventReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_EVENTS_REQUEST:

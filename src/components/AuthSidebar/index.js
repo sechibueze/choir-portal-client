@@ -36,7 +36,11 @@ const AuthSidebar = ({ currentMember, logout }) => {
         </Link>
 
         <Link to="/activity" className="sidebar-action-link">
-          <span className="fas fa-restroom admin-sidebar-icon" /> My Attendance{" "}
+          <span className="fas fa-restroom admin-sidebar-icon" />{" "}
+          <span>My Attendance</span>
+        </Link>
+        <Link to="/shiloh-info" className="sidebar-action-link">
+          <span className="fas fa-restroom admin-sidebar-icon" /> My Shiloh{" "}
         </Link>
         {currentMember && currentMember.auth.includes("admin") && (
           <Fragment>
@@ -49,9 +53,13 @@ const AuthSidebar = ({ currentMember, logout }) => {
             <Link to="/events" className="sidebar-action-link">
               <span className="fas fa-layer-group admin-sidebar-icon" /> Events{" "}
             </Link>
-            {/* <Link to="/user-manager" className="sidebar-action-link">
-              <span className="fa fa-users admin-sidebar-icon" /> User Admin
-            </Link> */}
+            <Link to="/posts" className="sidebar-action-link">
+              <span className="fas fa-comments admin-sidebar-icon" /> Posts
+            </Link>
+            <Link to="/shiloh-manager" className="sidebar-action-link">
+              <span className="fas fa-comments admin-sidebar-icon" />{" "}
+              <span>Shiloh Admin</span>
+            </Link>
           </Fragment>
         )}
         <span onClick={() => logout()} className="sidebar-action-link">

@@ -1,66 +1,117 @@
-import { 
-  GET_ALL_POSTS, 
-  SET_POST_BY_POST_ID,
-  NEW_POST_CREATED,
-  POST_DELETED,
-  LIKE_POST,
-  UNLIKE_POST,
-  ADD_COMMENT_TO_POST,
-  REMOVE_POST_COMMENT
- } from '../_actions/types';
+import {
+  RESET_POST,
+  CREATE_POST_REQUEST,
+  CREATE_POST_FAIL,
+  CREATE_POST_SUCCESS,
+  GET_POSTS_REQUEST,
+  GET_POSTS_FAIL,
+  GET_POSTS_SUCCESS,
+  EDIT_POST_REQUEST,
+  EDIT_POST_FAIL,
+  EDIT_POST_SUCCESS,
+  DELETE_POST_REQUEST,
+  DELETE_POST_FAIL,
+  DELETE_POST_SUCCESS,
+} from "../_actions/types";
 
 const initialState = {
-  postItems: [],
-  post: null,
+  posts: [],
+  postsRequest: false,
+
   newPost: null,
-  postLiked: false,
-  commentAdded: false,
-  postDeleted: false,
-  postCommentRemoved: false
+  newPostRequest: false,
+
+  postItem: null,
+  postItemRequest: false,
+
+  editPostDataRequest: false,
+  editPostData: null,
+
+  noPostDataRequest: false,
+  noPostData: null,
 };
 
-export default function(state = initialState, action) {
+export default function postReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_ALL_POSTS:
+    case RESET_POST:
       return {
         ...state,
-        postItems: payload
+        postItem: null,
+        editPostData: null,
+        noPostData: null,
       };
-    case SET_POST_BY_POST_ID:
+    // Create Post
+    case CREATE_POST_REQUEST:
       return {
         ...state,
-        post: payload
+        newPostRequest: true,
       };
-   
-    case NEW_POST_CREATED:
+    case CREATE_POST_FAIL:
       return {
         ...state,
-        newPost: payload
+        newPostRequest: false,
       };
-    case LIKE_POST:
-    case UNLIKE_POST:
+    case CREATE_POST_SUCCESS:
       return {
         ...state,
-        postLiked: payload
+        newPostRequest: false,
+        newPost: payload,
       };
-    case ADD_COMMENT_TO_POST:
+    // Get Posts
+    case GET_POSTS_REQUEST:
       return {
         ...state,
-        commentAdded: payload
+        postsRequest: true,
       };
-    case REMOVE_POST_COMMENT:
+    case GET_POSTS_FAIL:
       return {
         ...state,
-        postCommentRemoved: payload
+        postsRequest: false,
       };
-    case POST_DELETED:
+    case GET_POSTS_SUCCESS:
       return {
         ...state,
-        postDeleted: payload
+        postsRequest: false,
+        posts: payload,
       };
+    // Delete Posts
+    case DELETE_POST_REQUEST:
+      return {
+        ...state,
+        noPostDataRequest: true,
+      };
+    case DELETE_POST_FAIL:
+      return {
+        ...state,
+        noPostDataRequest: false,
+      };
+    case DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        noPostDataRequest: false,
+        noPostData: payload,
+      };
+    // Edit Posts
+    case EDIT_POST_REQUEST:
+      return {
+        ...state,
+        editPostDataRequest: true,
+      };
+    case EDIT_POST_FAIL:
+      return {
+        ...state,
+        editPostDataRequest: false,
+      };
+    case EDIT_POST_SUCCESS:
+      return {
+        ...state,
+        editPostDataRequest: false,
+        editPostData: payload,
+      };
+
     default:
       return state;
   }
-};
+}

@@ -6,6 +6,7 @@ import { editMember } from "../../_actions/memberActions";
 import { EDIT_MEMBER_FAIL } from "../../_actions/types";
 import { setAlert } from "../../_actions/alertActions";
 import Alert from "../Alert";
+import ftcLogo from "../../assets/images/ftc-logo.png";
 import "./EditMemberForm.scss";
 
 const EditMemberForm = ({
@@ -13,10 +14,8 @@ const EditMemberForm = ({
   editMember,
   editMemberRequest,
   currentMember,
-  updatedMember,
   setAlert,
 }) => {
-  console.log("edit member data", memberData);
   const [editMemberData, setEditMemberData] = useState({
     _id: memberData && memberData._id,
     key: memberData && memberData._id,
@@ -35,7 +34,6 @@ const EditMemberForm = ({
   };
   const handleMemberUpdate = (e) => {
     e.preventDefault();
-    // editMemberData._id = currentMember._id
     // Validate Admin input
     console.info("[EditMemberForm]: payload", editMemberData);
     editMember(editMemberData);
@@ -60,7 +58,7 @@ const EditMemberForm = ({
         >
           <div className="form-logo">
             <img
-              src="./img/ftc-logo.png"
+              src={ftcLogo}
               alt="New member Form ID"
               className="form-logo-icon"
             />

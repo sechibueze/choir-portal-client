@@ -18,7 +18,8 @@ const EventDetails = ({
   match,
 }) => {
   const getEvent = () => getEventById(match.params._id);
-  useEffect(getEvent, [match]);
+  const _getEvent = () => getEvent();
+  useEffect(_getEvent, [match, _getEvent]);
 
   return (
     <Fragment>
